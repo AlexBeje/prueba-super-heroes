@@ -31,8 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Prueba técnica frontend
 Se debe utilizar la última versión LTS de Angular.
 
-La prueba consiste en desarrollar una aplicación SPA que permita gestionar un
-mantenimiento de súper héroes, se valorarán tanto la estructura del proyecto, el formato, la
+La prueba consiste en desarrollar una aplicación SPA que permita gestionar un mantenimiento de súper héroes, se valorarán tanto la estructura del proyecto, el formato, la
 optimización y el tipado del código, se debe crear el proyecto teniendo en cuenta que podría
 crecer en un futuro.
 
@@ -40,33 +39,33 @@ La aplicación debe contener al menos las siguientes vistas y se valora positiva
 navegación entre las mismas:
 
 **Filtro y listado**
-- Input para filtrado por nombre de héroes, se valora la gestión de los eventos para
+- [ ] Input para filtrado por nombre de héroes, se valora la gestión de los eventos para
 minimizar las veces que se lanza el filtrado.
-- Botón editar, navegará a la página de edición mostrando los datos del héroe
+- [ ] Botón editar, navegará a la página de edición mostrando los datos del héroe
 seleccionado.
-- Botón nuevo héroe, navegará a la página de creación de héroes.
-- El nombre de los héroes del filtrado debe mostrarse con la primera letra en
+- [ ] Botón nuevo héroe, navegará a la página de creación de héroes.
+- [ ] El nombre de los héroes del filtrado debe mostrarse con la primera letra en
 mayúsculas.
-- Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe
+- [ ] Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe
 y, al confirmarlo, lo borrará.
 
 **Crear / Editar**
-- Formulario con los campos necesarios para la creación / edición.
-- Al crear/editar un héroe, navegar al listado de héroes.
-- El campo de nombre de los héroes debe mostrarse en mayúsculas.
+- [ ] Formulario con los campos necesarios para la creación / edición.
+- [ ] Al crear/editar un héroe, navegar al listado de héroes.
+- [ ] El campo de nombre de los héroes debe mostrarse en mayúsculas.
 
 **Otros elementos:**
-- Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
+- [ ] Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
 pero en caso de tener los datos en el servicio, se debe simular las llamadas a la API
 mediante observables.
-- Loader: Al obtener los datos se debe mostrar un loader informando al usuario de que
+- [ ] Loader: Al obtener los datos se debe mostrar un loader informando al usuario de que
 los datos se están cargando.
-- Notificaciones: Al crear / modificar / eliminar un elemento o en caso de error, mostrar
+- [ ] Notificaciones: Al crear / modificar / eliminar un elemento o en caso de error, mostrar
 mensaje informativo al usuario.
 
 **Se valora positivamente:**
-1. Utilizar una librería visual como podría ser Angular material.
-2. Añadir tests.
-3. Uso de programación reactiva.
-4. Modularización de los componentes
-La prueba se debe presentar en un repositorio de Git.
+- [X] Utilizar una librería visual como podría ser Angular material.
+- [ ] Añadir tests.
+- [ ] Uso de programación reactiva.
+- [ ] Modularización de los componentes
+- [X]La prueba se debe presentar en un repositorio de Git.
