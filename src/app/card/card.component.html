@@ -1,0 +1,58 @@
+<div
+  class="relative h-[524px] w-[400px] border-[8px] border-solid border-[#44474e]"
+>
+  <div
+    class="absolute h-full w-full shadow-[inset_0_0_40px_20px_rgba(0,0,0,0.9)]"
+  ></div>
+  <div
+    class="absolute -left-9 -top-9 flex h-16 w-16 select-none items-center justify-center rounded-full border-[8px] border-solid border-[#44474e] bg-[#262931] text-xl text-[#abc7f9]"
+  >
+    <strong>{{ powerstats()?.power || "-" }}</strong>
+  </div>
+  <div
+    class="absolute -right-9 -top-10 flex h-[72px] w-[72px] select-none items-center justify-center text-xl"
+  >
+    <img src="figure.svg" class="absolute w-[72px]" />
+    <strong class="absolute text-[#FADA89]">{{
+      powerstats()?.speed || "-"
+    }}</strong>
+  </div>
+  <img class="h-full w-full" src="{{ image() }}" alt="{{ title() }}" />
+  <div
+    class="absolute -bottom-6 -left-6 rotate-12 transform rounded-lg border-[8px] border-solid border-[#44474e] bg-[#1a1b1f] px-4 py-2"
+  >
+    <strong>{{ title() }}</strong>
+  </div>
+  <div
+    class="absolute -bottom-8 -right-7 max-w-[200px] rounded-lg border-[8px] border-solid border-[#44474e] bg-[#1a1b1f] p-2"
+  >
+    <p class="pb-2 text-center text-xl"><strong>Biography</strong></p>
+    <div class="flex flex-col gap-1">
+      <div>
+        <strong class="text-sm">Full name</strong>
+        <p class="text-xs">{{ biography()?.fullName || "-" }}</p>
+      </div>
+      <div>
+        <strong class="text-sm">Aliass</strong>
+        <p class="text-xs">
+          {{ biography()?.aliases?.length ? biography()!.aliases[0] : "-" }}
+        </p>
+      </div>
+      <div>
+        <strong class="text-sm">Alignment</strong>
+        <p
+          class="text-xs 
+            {{ biography()?.alignment === 'good' && 'text-green-500' }}
+            {{ biography()?.alignment === 'bad' && 'text-red-500' }}
+          "
+        >
+          {{ biography()?.alignment === "good" ? "Good" : "Bad" }}
+        </p>
+      </div>
+      <div>
+        <strong class="text-sm">First appearance</strong>
+        <p class="text-xs">{{ biography()?.firstAppearance || "-" }}</p>
+      </div>
+    </div>
+  </div>
+</div>

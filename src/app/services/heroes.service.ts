@@ -14,4 +14,10 @@ export class HeroesService {
       'https://akabab.github.io/superhero-api/api/all.json'
     );
   }
+
+  getHeroById(id: number): Observable<Hero> {
+    return this.http.get<Hero>(
+      `https://akabab.github.io/superhero-api/api/id/${id}.json`
+    );
+  }
 }

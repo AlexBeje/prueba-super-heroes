@@ -2,7 +2,7 @@
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
 // Plus imports for other components in your app.
-// @tailwind base;
+@tailwind base;
 // @tailwind components;
 @tailwind utilities;
 
@@ -12,7 +12,7 @@
 @include mat.core();
 
 // Define the theme object.
-$prueba-super-heroes-theme: mat.define-theme(
+$dark-super-heroes-theme: mat.define-theme(
   (
     color: (
       theme-type: dark,
@@ -29,15 +29,50 @@ $prueba-super-heroes-theme: mat.define-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-  @include mat.all-component-themes($prueba-super-heroes-theme);
+  @include mat.all-component-themes($dark-super-heroes-theme);
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply m-0;
+  }
+
+  /* Scrollbar Width */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  /* Scrollbar Track */
+  ::-webkit-scrollbar-track {
+    background: #1a1b1f;
+    border-right: 4px #16171b solid;
+    background-clip: padding-box;
+    // box-shadow: inset 0 0 5px grey;
+    // background-color: #16171B;
+    // border-radius: 10px;
+    // padding: 2px;
+    // border: 4px solid rgba(0, 0, 0, 0);
+  }
+  /* Scrollbar Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #1a1b1f;
+    border-right: 6px #444756 solid;
+  }
+  /* Scrollbar Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+  }
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($prueba-super-heroes-theme);
+// @include mat.typography-hierarchy($dark-super-heroes-theme);
 
 // Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($prueba-super-heroes-theme);
+// @include mat.color-variants-backwards-compatibility($dark-super-heroes-theme);
 /* You can add global styles to this file, and also import other style files */
 
 html,

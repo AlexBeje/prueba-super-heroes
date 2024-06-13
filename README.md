@@ -31,7 +31,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Prueba técnica frontend
 Se debe utilizar la última versión LTS de Angular.
 
-La prueba consiste en desarrollar una aplicación SPA que permita gestionar un mantenimiento de súper héroes, se valorarán tanto la estructura del proyecto, el formato, la
+La prueba consiste en desarrollar una aplicación SPA que permita gestionar un mantenimiento 
+de súper héroes, se valorarán tanto la estructura del proyecto, el formato, la
 optimización y el tipado del código, se debe crear el proyecto teniendo en cuenta que podría
 crecer en un futuro.
 
@@ -55,7 +56,7 @@ y, al confirmarlo, lo borrará.
 - [ ] El campo de nombre de los héroes debe mostrarse en mayúsculas.
 
 **Otros elementos:**
-- [ ] Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
+- [x] Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
 pero en caso de tener los datos en el servicio, se debe simular las llamadas a la API
 mediante observables.
 - [ ] Loader: Al obtener los datos se debe mostrar un loader informando al usuario de que
@@ -64,8 +65,8 @@ los datos se están cargando.
 mensaje informativo al usuario.
 
 **Se valora positivamente:**
-- [X] Utilizar una librería visual como podría ser Angular material.
+- [x] Utilizar una librería visual como podría ser Angular material.
 - [ ] Añadir tests.
 - [ ] Uso de programación reactiva.
 - [ ] Modularización de los componentes
-- [X]La prueba se debe presentar en un repositorio de Git.
+- [x]La prueba se debe presentar en un repositorio de Git.

@@ -1,11 +1,8 @@
-<main class="main flex gap-8 flex-col items-center justify-center h-screen">
-  <h1 class="m-0">
-    Welcome to my <span class="text-blue-600">{{ title }}</span> Angular
-    project!
-  </h1>
-  <mat-slide-toggle>
-    <span class="text-xl ml-2">Are you ready?</span>
-  </mat-slide-toggle>
+<main class="main flex flex-col items-center">
+  <h1 class="py-8 pt-12 text-3xl font-bold">{{ title }}</h1>
+  <div class="px-8 pb-8">
+    <app-heroes-db />
+  </div>
 </main>
 
 <router-outlet />

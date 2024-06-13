@@ -1,0 +1,28 @@
+@if (heroes().length > 0) {
+  <div class="relative flex gap-12 mt-4">
+    <div
+      class="mt-4 flex max-h-[520px] flex-col gap-2 overflow-auto after:absolute after:bottom-0 after:h-4 after:w-[220px] after:bg-gradient-to-t after:from-[#1a1b1f] after:content-['']"
+    >
+      @for (hero of currentHeroes(); track hero.id) {
+        <app-banner
+          (bannerClick)="onBannerClick($event)"
+          [title]="hero.name"
+          [image]="hero.images.lg"
+          [id]="hero.id"
+          [selected]="selectedHero()?.id === hero.id"
+        />
+      }
+      <button mat-button (click)="onShowMore()" class="mb-4 min-h-8">
+        More
+      </button>
+    </div>
+    <div class="mt-4">
+      <app-card
+        [title]="selectedHero()?.name"
+        [image]="selectedHero()?.images?.lg"
+        [biography]="selectedHero()?.biography"
+        [powerstats]="selectedHero()?.powerstats"
+      />
+    </div>
+  </div>
+}
