@@ -1,0 +1,89 @@
+<div
+  class="relative h-[524px] w-[400px] rounded-lg border-[8px] border-solid border-[#44474e]"
+>
+  <div
+    class="absolute -z-10 h-full w-full shadow-[inset_0_0_40px_20px_rgba(0,0,0,0.25)]"
+  ></div>
+  <div class="relative flex flex-col gap-4 p-6">
+    <div class="flex justify-between">
+      <h2 class="text-3xl font-bold">New Hero</h2>
+      <button (click)="onClose()" mat-icon-button aria-label="Close button">
+        <mat-icon class="mb-4">close</mat-icon>
+      </button>
+    </div>
+    <div class="flex flex-col gap-2">
+      <mat-form-field class="w-full">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          placeholder="Spider-Man"
+          [formControl]="name"
+          (blur)="updateErrorMessage()"
+          required
+        />
+        @if (name.invalid) {
+          <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Image URL</mat-label>
+        <input
+          matInput
+          placeholder="https://images-website/hero.jpg"
+          [formControl]="imageUrl"
+          (blur)="updateErrorMessage()"
+          required
+        />
+        @if (imageUrl.invalid) {
+          <mat-error>{{ errorMessage() }}</mat-error>
+        }
+      </mat-form-field>
+      <div class="flex gap-6">
+        <mat-form-field class="w-full">
+          <mat-label>Power</mat-label>
+          <input
+            matInput
+            placeholder="43"
+            [formControl]="power"
+            (blur)="updateErrorMessage()"
+            required
+          />
+          @if (power.invalid) {
+            <mat-error>{{ errorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Speed</mat-label>
+          <input
+            matInput
+            placeholder="87"
+            [formControl]="speed"
+            (blur)="updateErrorMessage()"
+            required
+          />
+          @if (speed.invalid) {
+            <mat-error>{{ errorMessage() }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Alias</mat-label>
+        <input matInput placeholder="Spidey" [formControl]="alias" />
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>First Appearance</mat-label>
+        <input
+          matInput
+          placeholder="Spider-Man #1"
+          [formControl]="firstAppearance"
+        />
+      </mat-form-field>
+    </div>
+    <div
+      class="absolute -bottom-10 -right-16 flex -rotate-12 transform gap-4 rounded-lg border-8 border-solid border-[#44474e] bg-[#1a1b1f] p-4 drop-shadow-2xl"
+    >
+      <button mat-button color="warn" (click)="onClose()">Cancel</button>
+      <button mat-flat-button>Add</button>
+    </div>
+  </div>
+</div>

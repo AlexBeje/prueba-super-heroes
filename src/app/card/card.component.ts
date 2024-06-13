@@ -2,7 +2,7 @@ import { Component, Input, input, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Biography, Powerstats } from '../types/heroes.interface';
+import type { Biography, Powerstats } from '../types/heroes.model';
 
 @Component({
   selector: 'app-card',

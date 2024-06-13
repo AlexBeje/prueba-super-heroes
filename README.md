@@ -44,7 +44,7 @@ navegación entre las mismas:
 minimizar las veces que se lanza el filtrado.
 - [ ] Botón editar, navegará a la página de edición mostrando los datos del héroe
 seleccionado.
-- [ ] Botón nuevo héroe, navegará a la página de creación de héroes.
+- [x] Botón nuevo héroe, navegará a la página de creación de héroes.
 - [ ] El nombre de los héroes del filtrado debe mostrarse con la primera letra en
 mayúsculas.
 - [ ] Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe

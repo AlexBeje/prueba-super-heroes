@@ -1,15 +1,16 @@
 import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
-import { Hero } from '../types/heroes.interface';
+import type { Hero } from '../types/heroes.model';
 import { HeroesService } from '../services/heroes.service';
 import { CardComponent } from '../card/card.component';
 import { BannerComponent } from '../banner/banner.component';
 import { MatButton } from '@angular/material/button';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'app-heroes-db',
   standalone: true,
   templateUrl: './heroes-db.component.html',
-  imports: [CardComponent, BannerComponent, MatButton],
+  imports: [CardComponent, BannerComponent, MatButton, FormComponent],
 })
 export class HeroesDbComponent implements OnInit {
   /** Variables **/
@@ -21,6 +22,7 @@ export class HeroesDbComponent implements OnInit {
   heroes = signal<Hero[]>([]);
   currentHeroes = signal<Hero[]>([]);
   selectedHero = signal<Hero | null>(null);
+  editMode = signal<boolean>(true);
 
   /** Lifecycle Hooks **/
   ngOnInit(): void {
@@ -53,11 +55,23 @@ export class HeroesDbComponent implements OnInit {
   }
   onBannerClick(id: number): void {
     this.selectedHero.set(this.heroes().find((hero) => hero.id === id) || null);
+    this.editMode.set(false);
   }
   onShowMore(): void {
     this.currentHeroes.update(() => [
       ...this.currentHeroes(),
-      ...this.heroes().slice(this.currentHeroes().length, this.currentHeroes().length + 10),
+      ...this.heroes().slice(
+        this.currentHeroes().length,
+        this.currentHeroes().length + 10,
+      ),
     ]);
+  }
+  onAddHero(): void {
+    this.editMode.set(true);
+    this.selectedHero.set(null);
+  }
+  onCloseAddHero(): void {
+    this.editMode.set(false);
+    this.selectedHero.set(this.heroes()[0]);
   }
 }
