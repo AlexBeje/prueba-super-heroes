@@ -17,7 +17,7 @@
       powerstats()?.speed || "-"
     }}</strong>
   </div>
-  <img class="h-full w-full" src="{{ image() }}" alt="{{ title() }}" />
+  <img class="h-full w-full object-cover" src="{{ image() }}" alt="{{ title() }}" />
   <div
     class="absolute -bottom-6 -left-6 rotate-12 transform rounded-lg border-[8px] border-solid border-[#44474e] bg-[#1a1b1f] px-4 py-2"
   >
@@ -35,7 +35,7 @@
       <div>
         <strong class="text-sm">Aliass</strong>
         <p class="text-xs">
-          {{ biography()?.aliases?.length ? biography()!.aliases[0] : "-" }}
+          {{ biography()?.aliases?.length && biography()!.aliases[0] || "-" }}
         </p>
       </div>
       <div>

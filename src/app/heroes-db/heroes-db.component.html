@@ -10,6 +10,15 @@
       >
         + Add Hero
       </div>
+      @for (myHero of myHeroes(); track myHero.id) {
+        <app-banner
+          (bannerClick)="onBannerClick($event)"
+          [title]="myHero.name"
+          [image]="myHero.images.lg"
+          [id]="myHero.id"
+          [selected]="selectedHero()?.id === myHero.id"
+        />
+      }
       <h2 class="text-lg"><strong>Database</strong></h2>
       @for (hero of currentHeroes(); track hero.id) {
         <app-banner
@@ -26,7 +35,11 @@
     </div>
     <div class="mt-4">
       @if (editMode() === true) {
-        <app-form (close)="onCloseAddHero()"></app-form>
+        <app-form
+          [lastId]="lastId()"
+          (close)="onCloseForm()"
+          (add)="onAddForm($event)"
+        />
       } @else {
         <app-card
           [title]="selectedHero()?.name"
