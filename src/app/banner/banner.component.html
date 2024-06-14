@@ -1,20 +1,23 @@
 <div
-  class="group last:flex cursor-pointer items-center gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 w-[220px] hover:bg-[#30323a]
+  class="flex group cursor-pointer justify-between gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 hover:bg-[#30323a] md:max-w-[250px]
   {{ selected() ? 'bg-[#44474E]' : '' }}
   "
   (click)="onBannerClick()"
 >
-  <img [src]="image()" class="h-10 w-10 min-w-10 rounded-full object-cover" />
-  <span class="w-full truncate font-bold">{{ title() }}</span>
-  @if (editMode()) {
-    <div class="hidden group-hover:flex">
+  <div class="flex items-center gap-2 truncate">
+    <img [src]="image()" class="h-10 w-10 rounded-full object-cover" />
+    <span class="truncate font-bold">{{ title() }}</span>
+  </div>
+  <div class="hidden group-hover:flex">
+    @if (editMode()) {
       <button
         mat-icon-button
-        aria-label="Example icon button with a vertical three dot icon"
+        aria-label="Edit button"
         (click)="onEdit($event)"
+        class="hidden"
       >
         <mat-icon class="mb-2">edit</mat-icon>
       </button>
-    </div>
-  }
+    }
+  </div>
 </div>

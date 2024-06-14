@@ -1,11 +1,16 @@
 @if (heroes().length > 0) {
-  <div class="relative mt-4 flex gap-12">
+  <div
+    class="relative flex w-screen flex-col items-center justify-center gap-12 md:mt-4 md:w-auto md:flex-row"
+  >
     <div
-      class="mt-4 flex max-h-[520px] flex-col gap-2 overflow-auto after:absolute after:bottom-0 after:h-4 after:w-[220px] after:bg-gradient-to-t after:from-[#1a1b1f] after:content-['']"
+      class="absolute left-0 top-[284px] h-4 w-full bg-gradient-to-t from-[#1a1b1f] md:bottom-0 md:top-auto md:w-[248px]"
+    ></div>
+    <div
+      class="flex max-h-[300px] w-full flex-col gap-2 overflow-auto border-t-2 border-[#44474e] pl-6 pr-1 pt-4 md:mt-4 md:max-h-[520px] md:w-[260px] md:border-t-0 md:p-0 md:px-0 md:pt-0"
     >
       <h2 class="text-lg"><strong>My Heroes</strong></h2>
       <div
-        class="flex min-h-[60px] w-[220px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
+        class="flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
         (click)="onAddHero()"
       >
         + Add Hero
@@ -35,7 +40,7 @@
         More
       </button>
     </div>
-    <div class="mt-4">
+    <div class="mb-14 mt-4 w-full px-8 md:mb-0 md:w-auto md:px-0">
       @if (editMode() === true || addMode() === true) {
         <app-form
           [lastId]="lastId()"
