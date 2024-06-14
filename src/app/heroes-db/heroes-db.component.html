@@ -12,21 +12,23 @@
       </div>
       @for (myHero of myHeroes(); track myHero.id) {
         <app-banner
-          (bannerClick)="onBannerClick($event)"
           [title]="myHero.name"
+          [selected]="selectedHero()?.id === myHero.id"
           [image]="myHero.images.lg"
           [id]="myHero.id"
-          [selected]="selectedHero()?.id === myHero.id"
+          [editMode]="true"
+          (editClick)="onEditHero($event)"
+          (bannerClick)="onBannerClick($event)"
         />
       }
       <h2 class="text-lg"><strong>Database</strong></h2>
       @for (hero of currentHeroes(); track hero.id) {
         <app-banner
-          (bannerClick)="onBannerClick($event)"
           [title]="hero.name"
+          [selected]="selectedHero()?.id === hero.id"
           [image]="hero.images.lg"
           [id]="hero.id"
-          [selected]="selectedHero()?.id === hero.id"
+          (bannerClick)="onBannerClick($event)"
         />
       }
       <button mat-button (click)="onShowMore()" class="mb-4 min-h-8">
@@ -34,11 +36,14 @@
       </button>
     </div>
     <div class="mt-4">
-      @if (editMode() === true) {
+      @if (editMode() === true || addMode() === true) {
         <app-form
           [lastId]="lastId()"
           (close)="onCloseForm()"
           (add)="onAddForm($event)"
+          (edit)="onEditForm($event)"
+          [data]="selectedHero()"
+          [editMode]="editMode()"
         />
       } @else {
         <app-card

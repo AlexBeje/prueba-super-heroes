@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  PLATFORM_ID,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
 import type { Hero } from '../types/heroes.model';
 import { HeroesService } from '../services/heroes.service';
 import { CardComponent } from '../card/card.component';
@@ -28,8 +22,27 @@ export class HeroesDbComponent implements OnInit {
   heroes = signal<Hero[]>([]);
   currentHeroes = signal<Hero[]>([]);
   selectedHero = signal<Hero | null>(null);
+  addMode = signal<boolean>(false);
   editMode = signal<boolean>(false);
-  myHeroes = signal<Hero[]>([]);
+  myHeroes = signal<Hero[]>([
+    {
+      id: 732,
+      name: 'Spider-Man',
+      images: {
+        lg: 'https://variety.com/wp-content/uploads/2023/05/spider-2.jpg',
+      },
+      powerstats: {
+        power: 43,
+        speed: 87,
+      },
+      biography: {
+        fullName: 'Peter Parker',
+        aliases: ['Spidey'],
+        firstAppearance: 'Spider-Man #1',
+        alignment: 'good',
+      },
+    },
+  ]);
   lastId = signal<number>(0);
 
   /** Lifecycle Hooks **/
@@ -37,9 +50,18 @@ export class HeroesDbComponent implements OnInit {
     this.getInitialHeroes();
     this.getAllHeroes();
     this.selectedHero.set(this.heroes()[0]);
-    this.lastId.set(
-      (this.heroes().length && this.heroes()[this.heroes().length - 1].id) || 0,
-    );
+    if (!this.myHeroes().length) {
+      this.lastId.set(
+        (this.heroes().length && this.heroes()[this.heroes().length - 1].id) ||
+          0,
+      );
+    } else {
+      this.lastId.set(
+        (this.myHeroes().length &&
+          this.myHeroes()[this.myHeroes().length - 1].id) ||
+          0,
+      );
+    }
   }
 
   /** Methods **/
@@ -61,12 +83,13 @@ export class HeroesDbComponent implements OnInit {
     });
   }
   onBannerClick(id: number): void {
+    this.addMode.set(false);
+    this.editMode.set(false);
     this.selectedHero.set(
       this.heroes().find((hero) => hero.id === id) ||
         this.myHeroes().find((hero) => hero.id === id) ||
         null,
     );
-    this.editMode.set(false);
   }
   onShowMore(): void {
     this.currentHeroes.update(() => [
@@ -78,14 +101,28 @@ export class HeroesDbComponent implements OnInit {
     ]);
   }
   onAddHero(): void {
-    this.editMode.set(true);
+    this.addMode.set(true);
+    this.editMode.set(false);
     this.selectedHero.set(null);
   }
+  onEditHero(id: number): void {
+    this.addMode.set(false);
+    this.editMode.set(true);
+    this.selectedHero.set(
+      this.myHeroes().find((hero) => hero.id === id) || null,
+    );
+  }
   onCloseForm(): void {
+    this.addMode.set(false);
     this.editMode.set(false);
     this.selectedHero.set(this.heroes()[0]);
   }
   onAddForm(hero: Hero): void {
     this.myHeroes.update(() => [...this.myHeroes(), hero]);
+  }
+  onEditForm(hero: Hero): void {
+    this.myHeroes.update(() =>
+      this.myHeroes().map((h) => (h.id === hero.id ? hero : h)),
+    );
   }
 }

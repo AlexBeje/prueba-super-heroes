@@ -57,6 +57,7 @@
         <mat-form-field class="w-full">
           <mat-label>Power</mat-label>
           <input
+            type="number"
             matInput
             placeholder="43"
             [formControl]="power"
@@ -70,6 +71,7 @@
         <mat-form-field class="w-full">
           <mat-label>Speed</mat-label>
           <input
+            type="number"
             matInput
             placeholder="87"
             [formControl]="speed"
@@ -113,7 +115,11 @@
       class="absolute -bottom-10 -right-16 flex -rotate-12 transform gap-4 rounded-lg border-8 border-solid border-[#44474e] bg-[#1a1b1f] p-4 drop-shadow-2xl"
     >
       <button mat-button color="warn" (click)="onClose()">Cancel</button>
-      <button mat-flat-button (click)="onAdd()">Add</button>
+      @if(editMode()) {
+        <button mat-flat-button (click)="onEdit()">Edit</button>
+      } @else {
+        <button mat-flat-button (click)="onAdd()">Add</button>
+      }
     </div>
   </div>
 </div>
