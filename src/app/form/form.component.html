@@ -6,7 +6,7 @@
   ></div>
   <div class="relative flex flex-col gap-4 p-6">
     <div class="flex justify-between">
-      <h2 class="text-3xl font-bold">New Hero</h2>
+      <h2 class="text-3xl font-bold">{{ editMode() ? 'Edit Hero' : 'New Hero'}}</h2>
       <button (click)="onClose()" mat-icon-button aria-label="Close button">
         <mat-icon class="mb-4">close</mat-icon>
       </button>
