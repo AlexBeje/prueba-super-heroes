@@ -22,46 +22,19 @@ export class HeroesDbComponent implements OnInit {
   heroes = signal<Hero[]>([]);
   currentHeroes = signal<Hero[]>([]);
   selectedHero = signal<Hero | null>(null);
+  previousSelectedHero = signal<number | null>(null);
   addMode = signal<boolean>(false);
   editMode = signal<boolean>(false);
-  myHeroes = signal<Hero[]>([
-    {
-      id: 732,
-      name: 'Spider-Man',
-      images: {
-        lg: 'https://variety.com/wp-content/uploads/2023/05/spider-2.jpg',
-      },
-      powerstats: {
-        power: 43,
-        speed: 87,
-      },
-      biography: {
-        fullName: 'Peter Parker',
-        aliases: ['Spidey'],
-        firstAppearance: 'Spider-Man #1',
-        alignment: 'good',
-      },
-    },
-  ]);
+  myHeroes = signal<Hero[]>([]);
   lastId = signal<number>(0);
 
   /** Lifecycle Hooks **/
   ngOnInit(): void {
+    this.getMyHeroes();
     this.getInitialHeroes();
     this.getAllHeroes();
-    this.selectedHero.set(this.heroes()[0]);
-    if (!this.myHeroes().length) {
-      this.lastId.set(
-        (this.heroes().length && this.heroes()[this.heroes().length - 1].id) ||
-          0,
-      );
-    } else {
-      this.lastId.set(
-        (this.myHeroes().length &&
-          this.myHeroes()[this.myHeroes().length - 1].id) ||
-          0,
-      );
-    }
+    this.setSelectedHero(1);
+    this.setLastId();
   }
 
   /** Methods **/
@@ -82,15 +55,27 @@ export class HeroesDbComponent implements OnInit {
       }
     });
   }
+  getMyHeroes(): void {
+    this.myHeroes.set(this.heroesService.getMyHeroes());
+  }
+  onAddNewClick(): void {
+    this.setMode('add');
+    this.setLastId();
+    this.setSelectedHero(null);
+  }
   onBannerClick(id: number): void {
     this.setMode('default');
-    this.selectedHero.set(
-      this.heroes().find((hero) => hero.id === id) ||
-        this.myHeroes().find((hero) => hero.id === id) ||
-        null,
-    );
+    this.setSelectedHero(id);
   }
-  onShowMore(): void {
+  onBannerEditClick(id: number): void {
+    this.setMode('edit');
+    this.setSelectedHero(id);
+  }
+  onBannerDeleteClick(id: number): void {
+    const hero = this.myHeroes().find((hero) => hero.id === id) as Hero;
+    this.onDeleteFormItem(hero);
+  }
+  onShowMoreClick(): void {
     this.currentHeroes.update(() => [
       ...this.currentHeroes(),
       ...this.heroes().slice(
@@ -99,34 +84,43 @@ export class HeroesDbComponent implements OnInit {
       ),
     ]);
   }
-  onAddHero(): void {
-    this.setMode('add');
-    this.selectedHero.set(null);
-  }
-  onEditHero(id: number): void {
-    this.setMode('edit');
-    this.selectedHero.set(
-      this.myHeroes().find((hero) => hero.id === id) || null,
-    );
-  }
-  onDeleteHero(id: number): void {
-    this.setMode('default');
-    this.selectedHero.set(this.heroes()[0]);
-    this.myHeroes.update(() =>
-      this.myHeroes().filter((hero) => hero.id !== id),
-    );
-  }
   onCloseForm(): void {
     this.setMode('default');
-    this.selectedHero.set(this.heroes()[0]);
+    if (this.previousSelectedHero() !== null) {
+      this.setSelectedHero(this.previousSelectedHero());
+    } else {
+      this.setSelectedHero(1);
+    }
   }
-  onAddForm(hero: Hero): void {
-    this.myHeroes.update(() => [...this.myHeroes(), hero]);
+  onAddFormItem(hero: Hero): void {
+    this.heroesService.addHero(hero);
+    this.getMyHeroes();
+    this.setMode('default');
+    this.setSelectedHero(hero.id);
   }
-  onEditForm(hero: Hero): void {
-    this.myHeroes.update(() =>
-      this.myHeroes().map((h) => (h.id === hero.id ? hero : h)),
-    );
+  onEditFormItem(hero: Hero): void {
+    this.heroesService.editHero(hero);
+    this.getMyHeroes();
+    this.setMode('default');
+    this.setSelectedHero(hero.id);
+  }
+  onDeleteFormItem(hero: Hero): void {
+    this.heroesService.deleteHero(hero);
+    this.getMyHeroes();
+  }
+  setSelectedHero(id: number | null): void {
+    if (id === null) {
+      this.selectedHero.set(null);
+      return;
+    }
+    this.previousSelectedHero.set(id);
+    const heroExists = this.myHeroes().find((hero) => hero.id === id);
+    const myHeroExists = this.heroes().find((hero) => hero.id === id);
+    if (heroExists) {
+      this.selectedHero.set(heroExists);
+    } else if (myHeroExists) {
+      this.selectedHero.set(myHeroExists);
+    }
   }
   setMode(mode: 'default' | 'add' | 'edit'): void {
     switch (mode) {
@@ -142,6 +136,20 @@ export class HeroesDbComponent implements OnInit {
         this.addMode.set(false);
         this.editMode.set(false);
         break;
+    }
+  }
+  setLastId(): void {
+    if (!this.myHeroes().length) {
+      this.lastId.set(
+        (this.heroes().length && this.heroes()[this.heroes().length - 1].id) ||
+          0,
+      );
+    } else {
+      this.lastId.set(
+        (this.myHeroes().length &&
+          this.myHeroes()[this.myHeroes().length - 1].id) ||
+          0,
+      );
     }
   }
 }

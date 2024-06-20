@@ -2,7 +2,7 @@
   class="flex group cursor-pointer justify-between gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 hover:bg-[#30323a] md:max-w-[250px]
   {{ selected() ? 'bg-[#44474E]' : '' }}
   "
-  (click)="onBannerClick()"
+  (click)="onClick($event)"
 >
   <div class="flex items-center gap-2 truncate">
     <img [src]="image()" class="h-10 w-10 rounded-full object-cover" />

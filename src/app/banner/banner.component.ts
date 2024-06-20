@@ -10,27 +10,28 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class BannerComponent {
   /** Inputs **/
-  id = input<number>(0);
+  id = input<number>(1);
   title = input<string>('');
   image = input<string>('');
   selected = input<boolean>(false);
   editMode = input<boolean>(false);
 
   /** Outputs **/
-  bannerClick = output<number>();
-  editClick = output<number>();
-  deleteClick = output<number>();
+  click = output<number>();
+  edit = output<number>();
+  delete = output<number>();
 
   /** Methods **/
-  onBannerClick(): void {
-    this.bannerClick.emit(this.id());
+  onClick(event: MouseEvent): void {
+    event.stopPropagation();
+    this.click.emit(this.id());
   }
   onEdit(event: MouseEvent): void {
     event.stopPropagation();
-    this.editClick.emit(this.id());
+    this.edit.emit(this.id());
   }
   onDelete(event: MouseEvent): void {
     event.stopPropagation();
-    this.deleteClick.emit(this.id());
+    this.delete.emit(this.id());
   }
 }
