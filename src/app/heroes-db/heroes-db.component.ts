@@ -83,8 +83,7 @@ export class HeroesDbComponent implements OnInit {
     });
   }
   onBannerClick(id: number): void {
-    this.addMode.set(false);
-    this.editMode.set(false);
+    this.setMode('default');
     this.selectedHero.set(
       this.heroes().find((hero) => hero.id === id) ||
         this.myHeroes().find((hero) => hero.id === id) ||
@@ -101,20 +100,24 @@ export class HeroesDbComponent implements OnInit {
     ]);
   }
   onAddHero(): void {
-    this.addMode.set(true);
-    this.editMode.set(false);
+    this.setMode('add');
     this.selectedHero.set(null);
   }
   onEditHero(id: number): void {
-    this.addMode.set(false);
-    this.editMode.set(true);
+    this.setMode('edit');
     this.selectedHero.set(
       this.myHeroes().find((hero) => hero.id === id) || null,
     );
   }
+  onDeleteHero(id: number): void {
+    this.setMode('default');
+    this.selectedHero.set(this.heroes()[0]);
+    this.myHeroes.update(() =>
+      this.myHeroes().filter((hero) => hero.id !== id),
+    );
+  }
   onCloseForm(): void {
-    this.addMode.set(false);
-    this.editMode.set(false);
+    this.setMode('default');
     this.selectedHero.set(this.heroes()[0]);
   }
   onAddForm(hero: Hero): void {
@@ -124,5 +127,21 @@ export class HeroesDbComponent implements OnInit {
     this.myHeroes.update(() =>
       this.myHeroes().map((h) => (h.id === hero.id ? hero : h)),
     );
+  }
+  setMode(mode: 'default' | 'add' | 'edit'): void {
+    switch (mode) {
+      case 'add':
+        this.addMode.set(true);
+        this.editMode.set(false);
+        break;
+      case 'edit':
+        this.addMode.set(false);
+        this.editMode.set(true);
+        break;
+      default:
+        this.addMode.set(false);
+        this.editMode.set(false);
+        break;
+    }
   }
 }

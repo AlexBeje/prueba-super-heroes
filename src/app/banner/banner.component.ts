@@ -19,6 +19,7 @@ export class BannerComponent {
   /** Outputs **/
   bannerClick = output<number>();
   editClick = output<number>();
+  deleteClick = output<number>();
 
   /** Methods **/
   onBannerClick(): void {
@@ -27,5 +28,9 @@ export class BannerComponent {
   onEdit(event: MouseEvent): void {
     event.stopPropagation();
     this.editClick.emit(this.id());
+  }
+  onDelete(event: MouseEvent): void {
+    event.stopPropagation();
+    this.deleteClick.emit(this.id());
   }
 }

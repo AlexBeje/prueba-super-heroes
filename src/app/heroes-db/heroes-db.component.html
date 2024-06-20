@@ -22,8 +22,9 @@
           [image]="myHero.images.lg"
           [id]="myHero.id"
           [editMode]="true"
-          (editClick)="onEditHero($event)"
           (bannerClick)="onBannerClick($event)"
+          (deleteClick)="onDeleteHero($event)"
+          (editClick)="onEditHero($event)"
         />
       }
       <h2 class="text-lg"><strong>Database</strong></h2>
