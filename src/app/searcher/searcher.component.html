@@ -1,0 +1,16 @@
+<form class="flex w-screen items-center gap-4 md:max-w-[708px]">
+  <mat-form-field class="w-full">
+    <mat-label>Search by</mat-label>
+    <input
+      type="text"
+      placeholder="Hero name"
+      aria-label="Hero name"
+      matInput
+      (keyup.Enter)="searchHero()"
+      (blur)="searchHero()"
+      [(ngModel)]="searchValue"
+      name="heroName"
+    />
+  </mat-form-field>
+  <!-- <button mat-flat-button class="-mt-4" (click)="searchHero()">Filter</button> -->
+</form>

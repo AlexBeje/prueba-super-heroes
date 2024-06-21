@@ -1,21 +1,38 @@
-@if (heroes().length > 0) {
+<div
+  class="relative flex w-screen flex-col gap-12 md:mt-4 md:w-auto md:flex-row"
+>
   <div
-    class="relative flex w-screen flex-col items-center justify-center gap-12 md:mt-4 md:w-auto md:flex-row"
+    class="absolute left-0 top-[284px] h-4 w-full bg-gradient-to-t from-[#1a1b1f] md:bottom-0 md:top-auto md:w-full"
+  ></div>
+  <div
+    class="flex max-h-[300px] w-full flex-col gap-2 overflow-auto border-t-2 border-[#44474e] pl-6 pr-1 pt-4 md:mt-4 md:max-h-[520px] md:w-[260px] md:border-t-0 md:p-0 md:px-0 md:pr-2 md:pt-0"
   >
+    <h2 class="text-lg"><strong>My Heroes</strong></h2>
     <div
-      class="absolute left-0 top-[284px] h-4 w-full bg-gradient-to-t from-[#1a1b1f] md:bottom-0 md:top-auto md:w-[248px]"
-    ></div>
-    <div
-      class="flex max-h-[300px] w-full flex-col gap-2 overflow-auto border-t-2 border-[#44474e] pl-6 pr-1 pt-4 md:mt-4 md:max-h-[520px] md:w-[260px] md:border-t-0 md:p-0 md:px-0 md:pt-0"
+      class="flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
+      (click)="onAddNewClick()"
     >
-      <h2 class="text-lg"><strong>My Heroes</strong></h2>
-      <div
-        class="flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
-        (click)="onAddNewClick()"
-      >
-        + Add Hero
-      </div>
-      @for (myHero of myHeroes(); track myHero.id) {
+      + Add Hero
+    </div>
+    @if (filteredMyHeroes() !== null) {
+      @if (filteredMyHeroes()?.length === 0) {
+        <p class="text-center text-sm">No heroes found</p>
+      } @else {
+        @for (hero of filteredMyHeroes(); track hero.id) {
+          <app-banner
+            [title]="hero.name"
+            [selected]="selectedHero()?.id === hero.id"
+            [image]="hero.images.lg"
+            [id]="hero.id"
+            [editMode]="true"
+            (edit)="onBannerEditClick($event)"
+            (delete)="onBannerDeleteClick($event)"
+            (click)="onBannerClick($event)"
+          />
+        }
+      }
+    } @else {
+      @for (myHero of currentMyHeroes(); track myHero.id) {
         <app-banner
           [title]="myHero.name"
           [selected]="selectedHero()?.id === myHero.id"
@@ -27,7 +44,23 @@
           (click)="onBannerClick($event)"
         />
       }
-      <h2 class="text-lg"><strong>Database</strong></h2>
+    }
+    <h2 class="text-lg"><strong>Database</strong></h2>
+    @if (filteredHeroes() !== null) {
+      @if (filteredHeroes()?.length === 0) {
+        <p class="text-center text-sm">No heroes found</p>
+      } @else {
+        @for (hero of filteredHeroes(); track hero.id) {
+          <app-banner
+            [title]="hero.name"
+            [selected]="selectedHero()?.id === hero.id"
+            [image]="hero.images.lg"
+            [id]="hero.id"
+            (click)="onBannerClick($event)"
+          />
+        }
+      }
+    } @else {
       @for (hero of currentHeroes(); track hero.id) {
         <app-banner
           [title]="hero.name"
@@ -37,28 +70,30 @@
           (click)="onBannerClick($event)"
         />
       }
-      <button mat-button (click)="onShowMoreClick()" class="mb-4 min-h-8">
-        More
-      </button>
-    </div>
-    <div class="mb-14 mt-4 w-full px-8 md:mb-0 md:w-auto md:px-0">
-      @if (editMode() === true || addMode() === true) {
-        <app-form
-          [lastId]="lastId()"
-          [editMode]="editMode()"
-          [data]="selectedHero()"
-          (edit)="onEditFormItem($event)"
-          (close)="onCloseForm()"
-          (add)="onAddFormItem($event)"
-        />
-      } @else {
-        <app-card
-          [title]="selectedHero()?.name"
-          [image]="selectedHero()?.images?.lg"
-          [biography]="selectedHero()?.biography"
-          [powerstats]="selectedHero()?.powerstats"
-        />
+      @if (currentHeroes()?.length !== heroes().length) {
+        <button mat-button (click)="onShowMoreClick()" class="mb-4 min-h-8">
+          More
+        </button>
       }
-    </div>
+    }
   </div>
-}
+  <div class="mb-14 mt-4 w-full px-8 md:mb-0 md:w-auto md:px-0">
+    @if (editMode() === true || addMode() === true) {
+      <app-form
+        [lastId]="lastId()"
+        [editMode]="editMode()"
+        [data]="selectedHero()"
+        (edit)="onEditFormItem($event)"
+        (close)="onCloseForm()"
+        (add)="onAddFormItem($event)"
+      />
+    } @else {
+      <app-card
+        [title]="selectedHero()?.name"
+        [image]="selectedHero()?.images?.lg"
+        [biography]="selectedHero()?.biography"
+        [powerstats]="selectedHero()?.powerstats"
+      />
+    }
+  </div>
+</div>

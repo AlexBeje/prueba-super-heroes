@@ -1,4 +1,12 @@
-import { Component, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  OnInit,
+  PLATFORM_ID,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import type { Hero } from '../types/heroes.model';
 import { HeroesService } from '../services/heroes.service';
 import { CardComponent } from '../card/card.component';
@@ -19,45 +27,32 @@ export class HeroesDbComponent implements OnInit {
   isServer = inject(PLATFORM_ID) === 'server';
 
   /** Signals **/
-  heroes = signal<Hero[]>([]);
-  currentHeroes = signal<Hero[]>([]);
+  currentMyHeroes = signal<Hero[] | null>(null);
+  currentHeroes = signal<Hero[] | null>(null);
   selectedHero = signal<Hero | null>(null);
   previousSelectedHero = signal<number | null>(null);
   addMode = signal<boolean>(false);
   editMode = signal<boolean>(false);
-  myHeroes = signal<Hero[]>([]);
   lastId = signal<number>(0);
+
+  /** Computed **/
+  heroes = computed(() => this.heroesService.heroes());
+  myHeroes = computed(() => this.heroesService.myHeroes());
+  filteredHeroes = computed(() => this.heroesService.filteredHeroes());
+  filteredMyHeroes = computed(() => this.heroesService.filteredMyHeroes());
 
   /** Lifecycle Hooks **/
   ngOnInit(): void {
-    this.getMyHeroes();
-    this.getInitialHeroes();
-    this.getAllHeroes();
+    this.heroesService.fetchHeroes();
+    this.heroesService.fetchMyHeroes();
+    this.currentMyHeroes.set(this.myHeroes());
+    this.currentHeroes.set(this.heroes().slice(0, 10));
     this.setSelectedHero(1);
     this.setLastId();
   }
 
+
   /** Methods **/
-  getInitialHeroes(): void {
-    for (let id = 1; id <= 11; id++) {
-      // Id 9 is not available in the API
-      if (id === 9) return;
-      this.heroesService.getHeroById(id).subscribe((hero) => {
-        this.currentHeroes.update(() => [...this.currentHeroes(), hero]);
-      });
-    }
-  }
-  getAllHeroes(): void {
-    this.heroesService.getAllHeroes().subscribe((heroes) => {
-      this.heroes.set(heroes);
-      if (this.isBrowser) {
-        console.log('Heroes:', this.heroes());
-      }
-    });
-  }
-  getMyHeroes(): void {
-    this.myHeroes.set(this.heroesService.getMyHeroes());
-  }
   onAddNewClick(): void {
     this.setMode('add');
     this.setLastId();
@@ -76,13 +71,15 @@ export class HeroesDbComponent implements OnInit {
     this.onDeleteFormItem(hero);
   }
   onShowMoreClick(): void {
-    this.currentHeroes.update(() => [
-      ...this.currentHeroes(),
-      ...this.heroes().slice(
-        this.currentHeroes().length,
-        this.currentHeroes().length + 10,
-      ),
-    ]);
+    this.currentHeroes.update((heroes) => {
+      if (heroes === null) {
+        return heroes;
+      }
+      return [
+        ...heroes,
+        ...this.heroes().slice(heroes.length, heroes.length + 10),
+      ];
+    });
   }
   onCloseForm(): void {
     this.setMode('default');
@@ -94,19 +91,19 @@ export class HeroesDbComponent implements OnInit {
   }
   onAddFormItem(hero: Hero): void {
     this.heroesService.addHero(hero);
-    this.getMyHeroes();
+    this.myHeroes();
     this.setMode('default');
     this.setSelectedHero(hero.id);
   }
   onEditFormItem(hero: Hero): void {
     this.heroesService.editHero(hero);
-    this.getMyHeroes();
+    this.myHeroes();
     this.setMode('default');
     this.setSelectedHero(hero.id);
   }
   onDeleteFormItem(hero: Hero): void {
     this.heroesService.deleteHero(hero);
-    this.getMyHeroes();
+    this.myHeroes();
   }
   setSelectedHero(id: number | null): void {
     if (id === null) {
