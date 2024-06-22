@@ -1,16 +1,26 @@
 <form class="flex w-screen items-center gap-4 md:max-w-[708px]">
   <mat-form-field class="w-full">
-    <mat-label>Search by</mat-label>
-    <input
-      type="text"
-      placeholder="Hero name"
-      aria-label="Hero name"
-      matInput
-      (keyup.Enter)="searchHero()"
-      (blur)="searchHero()"
-      [(ngModel)]="searchValue"
-      name="heroName"
-    />
+    <mat-label>Find your hero ...</mat-label>
+    <div class="justify-center-center flex">
+      <input
+        type="text"
+        placeholder="Hero name"
+        aria-label="Hero name"
+        matInput
+        (keyup.Enter)="searchHero()"
+        (blur)="searchHero()"
+        [(ngModel)]="searchValue"
+        name="heroName"
+      />
+      @if (searchValue()) {
+        <button
+          mat-icon-button
+          aria-label="Edit button"
+          (mouseup)="resetSearchHero($event)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
   </mat-form-field>
-  <!-- <button mat-flat-button class="-mt-4" (click)="searchHero()">Filter</button> -->
 </form>

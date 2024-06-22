@@ -10,6 +10,7 @@
     <h2 class="text-lg"><strong>My Heroes</strong></h2>
     <div
       class="flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
+      [class]="addMode() ? 'bg-[#44474E]' : ''"
       (click)="onAddNewClick()"
     >
       + Add Hero

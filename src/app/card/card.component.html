@@ -35,9 +35,8 @@
       <div>
         <strong class="text-sm">Full name</strong>
         @if (biography()?.fullName) {
-          <p class="underline">
+          <p class="underline text-xs">
             <a
-              class="text-xs"
               [href]="'https://www.google.es/search?q=' + biography()?.fullName"
               target="_blank"
             >
@@ -67,7 +66,27 @@
       </div>
       <div>
         <strong class="text-sm">First appearance</strong>
-        <p class="text-xs">{{ biography()?.firstAppearance || "-" }}</p>
+        @if (biography()?.fullName) {
+          <p class="underline text-xs">
+            <a
+              [href]="
+                'https://www.google.es/search?q=' +
+                biography()
+                  ?.firstAppearance?.replaceAll(' ', '+')
+                  ?.replaceAll('&', '%26')
+                  ?.replaceAll('#', '%23')
+                  ?.replaceAll(':', '%3A')
+                  ?.replaceAll('(', '%28')
+                  ?.replaceAll(')', '%29')
+              "
+              target="_blank"
+            >
+              {{ biography()?.firstAppearance }}
+            </a>
+          </p>
+        } @else {
+          <p class="text-xs">-</p>
+        }
       </div>
     </div>
   </div>

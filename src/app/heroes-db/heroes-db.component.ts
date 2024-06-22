@@ -51,7 +51,6 @@ export class HeroesDbComponent implements OnInit {
     this.setLastId();
   }
 
-
   /** Methods **/
   onAddNewClick(): void {
     this.setMode('add');
@@ -91,19 +90,28 @@ export class HeroesDbComponent implements OnInit {
   }
   onAddFormItem(hero: Hero): void {
     this.heroesService.addHero(hero);
-    this.myHeroes();
+    this.heroesService.fetchMyHeroes();
+    this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
   }
   onEditFormItem(hero: Hero): void {
     this.heroesService.editHero(hero);
-    this.myHeroes();
+    this.heroesService.fetchMyHeroes();
+    this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
   }
   onDeleteFormItem(hero: Hero): void {
     this.heroesService.deleteHero(hero);
-    this.myHeroes();
+    this.heroesService.fetchMyHeroes();
+    this.currentMyHeroes.set(this.myHeroes());
+    this.setMode('default');
+    if (this.previousSelectedHero() === hero.id) {
+      this.setSelectedHero(1);
+    } else {
+      this.setSelectedHero(this.previousSelectedHero());
+    }
   }
   setSelectedHero(id: number | null): void {
     if (id === null) {
