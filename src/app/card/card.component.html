@@ -35,7 +35,7 @@
       <div>
         <strong class="text-sm">Full name</strong>
         @if (biography()?.fullName) {
-          <p class="underline text-xs">
+          <p class="text-xs underline">
             <a
               [href]="'https://www.google.es/search?q=' + biography()?.fullName"
               target="_blank"
@@ -66,8 +66,10 @@
       </div>
       <div>
         <strong class="text-sm">First appearance</strong>
-        @if (biography()?.firstAppearance) {
-          <p class="underline text-xs">
+        @if (
+          biography()?.firstAppearance && biography()?.firstAppearance !== "-"
+        ) {
+          <p class="text-xs underline">
             <a
               [href]="
                 'https://www.google.es/search?q=' +
