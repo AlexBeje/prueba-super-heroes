@@ -1,14 +1,14 @@
 <div
-  class="flex group cursor-pointer justify-between gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 hover:bg-[#30323a]
+  class="flex relative group cursor-pointer justify-between gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 hover:bg-[#30323a]
   {{ selected() ? 'bg-[#44474E]' : '' }}
   "
   (click)="onClick($event)"
 >
-  <div class="flex items-center gap-2 truncate">
-    <img [src]="image()" class="h-10 w-10 rounded-full object-cover" />
-    <span class="truncate font-bold">{{ title() }}</span>
+  <div class="flex h-16 w-16 items-center gap-2 truncate md:h-auto md:w-auto">
+    <img [src]="image()" class="object-cover md:h-10 md:w-10 md:rounded-full" />
+    <span class="hidden truncate font-bold md:block">{{ title() }}</span>
   </div>
-  <div class="hidden group-hover:flex">
+  <div class="hidden md:group-hover:flex">
     @if (editMode()) {
       <button
         mat-icon-button
