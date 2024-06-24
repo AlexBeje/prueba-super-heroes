@@ -1,15 +1,17 @@
-<div
-  class="relative flex w-screen flex-col gap-12 md:mt-4 md:w-auto md:flex-row"
->
+<div class="gap-12 md:relative md:mt-4 md:flex md:w-auto md:flex-row">
   <div
-    class="absolute left-0 top-[284px] h-4 w-full bg-gradient-to-t from-[#1a1b1f] md:bottom-0 md:top-auto md:w-full"
+    class="hidden md:absolute md:bottom-0 md:left-0 md:block md:h-4 md:w-full md:bg-gradient-to-t md:from-[#1a1b1f]"
   ></div>
   <div
-    class="flex max-h-[300px] w-full flex-col gap-2 overflow-auto border-t-2 border-[#44474e] pl-6 pr-1 pt-4 md:mt-4 md:max-h-[520px] md:w-[260px] md:border-t-0 md:p-0 md:px-0 md:pr-2 md:pt-0"
+    class="mb-12 flex h-[128px] items-center gap-2 overflow-x-auto border-b-[1px] border-t-[1px] bg-[#0F0F12] pl-2 md:m-0 md:mt-4 md:h-auto md:max-h-[520px] md:w-[260px] md:flex-col md:items-stretch md:overflow-auto md:border-0 md:border-[#44474e] md:bg-inherit md:pr-2"
   >
-    <h2 class="text-lg"><strong>My Heroes</strong></h2>
+    <h2
+      class="-m-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"
+    >
+      <strong class="w-full">My Heroes</strong>
+    </h2>
     <div
-      class="flex min-h-[60px] cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474e] hover:bg-[#30323a]"
+      class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-solid border-[#44474E] bg-[#30323] text-[8px] md:h-auto md:min-h-[60px] md:w-auto md:cursor-pointer md:text-sm"
       [class]="addMode() ? 'bg-[#44474E]' : ''"
       (click)="onAddNewClick()"
     >
@@ -17,7 +19,7 @@
     </div>
     @if (filteredMyHeroes() !== null) {
       @if (filteredMyHeroes()?.length === 0) {
-        <p class="text-center text-sm">No heroes found</p>
+        <p class="md:text-center md:text-sm">No heroes found</p>
       } @else {
         @for (hero of filteredMyHeroes(); track hero.id) {
           <app-banner
@@ -46,10 +48,10 @@
         />
       }
     }
-    <h2 class="text-lg"><strong>Database</strong></h2>
+    <h2 class="md:text-lg"><strong>Database</strong></h2>
     @if (filteredHeroes() !== null) {
       @if (filteredHeroes()?.length === 0) {
-        <p class="text-center text-sm">No heroes found</p>
+        <p class="md:text-center md:text-sm">No heroes found</p>
       } @else {
         @for (hero of filteredHeroes(); track hero.id) {
           <app-banner
@@ -72,13 +74,17 @@
         />
       }
       @if (currentHeroes()?.length !== heroes().length) {
-        <button mat-button (click)="onShowMoreClick()" class="mb-4 min-h-8">
+        <button
+          mat-button
+          (click)="onShowMoreClick()"
+          class="md:mb-4 md:min-h-8"
+        >
           More
         </button>
       }
     }
   </div>
-  <div class="mb-14 mt-4 w-full px-8 md:mb-0 md:w-auto md:px-0">
+  <div class="md:mb-0 md:mt-4 md:w-auto">
     @if (editMode() === true || addMode() === true) {
       <app-form
         [lastId]="lastId()"
