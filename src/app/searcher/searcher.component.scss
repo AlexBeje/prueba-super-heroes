@@ -1,17 +1,20 @@
 ::ng-deep {
   :root {
     --mdc-icon-button-state-layer-size: 24px;
-    // --mat-form-field-container-text-size: 0.75rem;
   }
   .mat-mdc-icon-button .mat-mdc-button-touch-target {
-    height: auto;
-    width: auto;
+    height: auto !important;
+    width: auto !important;
   }
-  .mat-icon {
-    font-size: 18px;
-    height: auto;
-    width: auto;
-    padding-top: 3px;
-    padding-left: 2px;
-  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-icon {
+  font-size: 18px;
+  height: auto;
+  width: auto;
+  padding-top: 3px;
 }
