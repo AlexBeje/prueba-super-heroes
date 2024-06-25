@@ -1,6 +1,5 @@
 import {
   Component,
-  DoCheck,
   OnInit,
   PLATFORM_ID,
   computed,
