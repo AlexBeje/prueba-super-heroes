@@ -3,7 +3,7 @@
     class="hidden md:absolute md:bottom-0 md:left-0 md:block md:h-4 md:w-full md:bg-gradient-to-t md:from-[#1a1b1f]"
   ></div>
   <div
-    class="mb-12 flex h-[128px] items-center gap-2 overflow-x-auto border-b-[1px] border-t-[1px] bg-[#0F0F12] pl-2 md:m-0 md:mt-4 md:h-auto md:max-h-[520px] md:w-[260px] md:flex-col md:items-stretch md:overflow-auto md:border-0 md:border-[#44474e] md:bg-inherit md:pr-2"
+    class="mb-12 flex h-[128px] items-center gap-4 overflow-x-auto border-b-[1px] border-t-[1px] border-[#44474e] bg-[#0F0F12] pl-2 md:m-0 md:mt-4 md:h-auto md:max-h-[520px] md:w-[260px] md:flex-col md:items-stretch md:overflow-auto md:overflow-x-hidden md:border-0 md:bg-inherit md:pr-2"
   >
     <h2
       class="-m-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"
@@ -11,7 +11,7 @@
       <strong class="w-full">My Heroes</strong>
     </h2>
     <div
-      class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-solid border-[#44474E] bg-[#30323] text-[8px] md:h-auto md:min-h-[60px] md:w-auto md:cursor-pointer md:text-sm"
+      class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-solid border-[#44474E] bg-[#30323] text-[8px] md:h-auto md:min-h-[60px] md:w-auto md:cursor-pointer md:text-sm md:hover:bg-[#30323a]"
       [class]="addMode() ? 'bg-[#44474E]' : ''"
       (click)="onAddNewClick()"
     >
@@ -21,12 +21,13 @@
       @if (filteredMyHeroes()?.length === 0) {
         <p class="md:text-center md:text-sm">No heroes found</p>
       } @else {
-        @for (hero of filteredMyHeroes(); track hero.id) {
+        @for (myHero of filteredMyHeroes(); track myHero.id) {
           <app-banner
-            [title]="hero.name"
-            [selected]="selectedHero()?.id === hero.id"
-            [image]="hero.images.lg"
-            [id]="hero.id"
+            [title]="myHero.name"
+            [selected]="selectedHero()?.id === myHero.id"
+            [name]="myHero.name"
+            [image]="myHero.images.lg"
+            [id]="myHero.id"
             [editMode]="true"
             (edit)="onBannerEditClick($event)"
             (delete)="onBannerDeleteClick($event)"
@@ -39,6 +40,7 @@
         <app-banner
           [title]="myHero.name"
           [selected]="selectedHero()?.id === myHero.id"
+          [name]="myHero.name"
           [image]="myHero.images.lg"
           [id]="myHero.id"
           [editMode]="true"
@@ -48,7 +50,11 @@
         />
       }
     }
-    <h2 class="-ml-4 -mr-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"><strong>Database</strong></h2>
+    <h2
+      class="-ml-4 -mr-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"
+    >
+      <strong>Database</strong>
+    </h2>
     @if (filteredHeroes() !== null) {
       @if (filteredHeroes()?.length === 0) {
         <p class="md:text-center md:text-sm">No heroes found</p>
@@ -57,6 +63,7 @@
           <app-banner
             [title]="hero.name"
             [selected]="selectedHero()?.id === hero.id"
+            [name]="hero.name"
             [image]="hero.images.lg"
             [id]="hero.id"
             (click)="onBannerClick($event)"
@@ -71,13 +78,14 @@
           [image]="hero.images.lg"
           [id]="hero.id"
           (click)="onBannerClick($event)"
+          [name]="hero.name"
         />
       }
       @if (currentHeroes()?.length !== heroes().length) {
         <button
           mat-button
           (click)="onShowMoreClick()"
-          class="md:mb-4 md:min-h-8"
+          class="mr-4 md:mb-4 md:mr-0 md:min-h-8"
         >
           More
         </button>

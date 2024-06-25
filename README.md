@@ -40,20 +40,20 @@ La aplicación debe contener al menos las siguientes vistas y se valora positiva
 navegación entre las mismas:
 
 **Filtro y listado**
-- [ ] Input para filtrado por nombre de héroes, se valora la gestión de los eventos para
+- [x] Input para filtrado por nombre de héroes, se valora la gestión de los eventos para
 minimizar las veces que se lanza el filtrado.
-- [ ] Botón editar, navegará a la página de edición mostrando los datos del héroe
+- [x] Botón editar, navegará a la página de edición mostrando los datos del héroe
 seleccionado.
 - [x] Botón nuevo héroe, navegará a la página de creación de héroes.
-- [ ] El nombre de los héroes del filtrado debe mostrarse con la primera letra en
+- [x] El nombre de los héroes del filtrado debe mostrarse con la primera letra en
 mayúsculas.
 - [ ] Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe
 y, al confirmarlo, lo borrará.
 
 **Crear / Editar**
-- [ ] Formulario con los campos necesarios para la creación / edición.
-- [ ] Al crear/editar un héroe, navegar al listado de héroes.
-- [ ] El campo de nombre de los héroes debe mostrarse en mayúsculas.
+- [x] Formulario con los campos necesarios para la creación / edición.
+- [x] Al crear/editar un héroe, navegar al listado de héroes.
+- [x] El campo de nombre de los héroes debe mostrarse en mayúsculas.
 
 **Otros elementos:**
 - [x] Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
@@ -67,6 +67,6 @@ mensaje informativo al usuario.
 **Se valora positivamente:**
 - [x] Utilizar una librería visual como podría ser Angular material.
 - [ ] Añadir tests.
-- [ ] Uso de programación reactiva.
-- [ ] Modularización de los componentes
+- [x] Uso de programación reactiva.
+- [x] Modularización de los componentes
 - [x]La prueba se debe presentar en un repositorio de Git.

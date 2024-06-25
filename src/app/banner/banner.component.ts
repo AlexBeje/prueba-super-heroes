@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -15,6 +15,7 @@ export class BannerComponent {
   image = input<string>('');
   selected = input<boolean>(false);
   editMode = input<boolean>(false);
+  name = input<string>('');
 
   /** Outputs **/
   click = output<number>();

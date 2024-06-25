@@ -1,14 +1,66 @@
 <div
-  class="flex relative group cursor-pointer justify-between gap-2 rounded-lg border-2 border-solid border-[#44474e] p-2 hover:bg-[#30323a]
-  {{ selected() ? 'bg-[#44474E]' : '' }}
+  class="flex relative md:static group cursor-pointer justify-between gap-2 rounded-lg border-[6px] md:border-2 border-solid border-[#44474e] md:p-2 hover:bg-[#30323a]
+  {{ selected() ? 'md:bg-[#44474E]' : '' }}
   "
   (click)="onClick($event)"
 >
-  <div class="flex h-16 w-16 items-center gap-2 truncate md:h-auto md:w-auto">
-    <img [src]="image()" class="object-cover md:h-10 md:w-10 md:rounded-full" />
+  <div
+    class="flex h-[72px] w-[72px] items-center gap-2 truncate rounded-sm md:h-auto md:w-auto md:rounded-none"
+  >
+    <img
+      [src]="image()"
+      class="object-cover w-full h-full md:h-10 md:w-10 md:rounded-full 
+        {{ selected() ? 'opacity-100' : 'opacity-10' }}
+        group-hover:opacity-100
+      "
+    />
     <span class="hidden truncate font-bold md:block">{{ title() }}</span>
   </div>
-  <div class="hidden md:group-hover:flex">
+
+  <div
+    class="absolute flex w-[150%] flex-col justify-between
+    {{
+      editMode() && selected()
+        ? '-top-4 left-[-25%] h-[6.5rem]'
+        : '-bottom-4 left-[-25%]'
+    }}
+    "
+  >
+    @if (editMode() && selected()) {
+      <div class="flex justify-between md:hidden">
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-full border-[6px] border-[#44474e] bg-[#1a1b1f]"
+        >
+          <button
+            mat-icon-button
+            aria-label="Edit button"
+            (click)="onEdit($event)"
+            class="hidden"
+          >
+            <mat-icon class="-mb-1 text-[12px]">edit</mat-icon>
+          </button>
+        </div>
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-full border-[6px] border-[#44474e] bg-[#1a1b1f]"
+        >
+          <button
+            mat-icon-button
+            aria-label="Delete button"
+            (click)="onDelete($event)"
+            class="hidden"
+          >
+            <mat-icon class="-mb-1 text-[12px]">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+    <div
+      class="flex w-min max-w-[5.5rem] rotate-3 rounded-lg border-[6px] border-[#44474e] bg-[#1a1b1f] px-1 text-sm md:hidden"
+    >
+      <span class="truncate">{{ name() }}</span>
+    </div>
+  </div>
+  <div class="hidden items-center gap-1 md:group-hover:flex">
     @if (editMode()) {
       <button
         mat-icon-button

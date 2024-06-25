@@ -55,6 +55,14 @@ $dark-super-heroes-theme: mat.define-theme(
   ::-webkit-scrollbar-thumb {
     background: #444756;
   }
+
+  // --mdc-icon-button-state-layer-size: 24px;
+  .mat-mdc-icon-button {
+    .mat-mdc-button-touch-target {
+      width: auto !important;
+      height: auto !important;
+    }
+  }
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
