@@ -17,6 +17,7 @@ export class HeroesService {
   myHeroes = signal<Hero[]>([]);
   filteredHeroes = signal<Hero[] | null>(null);
   filteredMyHeroes = signal<Hero[] | null>(null);
+  searchValue = signal('');
 
   /** Getters **/
   getHeroes(): Hero[] {
@@ -24,6 +25,10 @@ export class HeroesService {
   }
   getMyHeroes(): Hero[] {
     return this.myHeroes();
+  }
+  getSearchValue(): string {
+    console.log('🙇‍♀️')
+    return this.searchValue();
   }
 
   /** Fetchers **/
@@ -63,20 +68,23 @@ export class HeroesService {
       localStorage.setItem('myHeroes', JSON.stringify(this.myHeroes()));
     }
   }
-  filterHeroesByName(name: string) {
-    if (name === '') {
+  setSearchValue(value: string): void {
+    this.searchValue.set(value);
+  }
+  filterHeroes() {
+    if (this.searchValue() === '') {
       this.filteredMyHeroes.set(null);
       this.filteredHeroes.set(null);
       return;
     }
     this.filteredMyHeroes.set(
       this.myHeroes().filter((hero) =>
-        hero.name.toLowerCase().includes(name.toLowerCase()),
+        hero.name.toLowerCase().includes(this.searchValue().toLowerCase()),
       ),
     );
     this.filteredHeroes.set(
       this.heroes().filter((hero) =>
-        hero.name.toLowerCase().includes(name.toLowerCase()),
+        hero.name.toLowerCase().includes(this.searchValue().toLowerCase()),
       ),
     );
   }

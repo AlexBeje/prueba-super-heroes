@@ -1,4 +1,4 @@
-import { Component, computed, signal, inject } from '@angular/core';
+import { Component, signal, inject, effect, computed } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,15 +25,32 @@ export class SearcherComponent {
   heroesService = inject(HeroesService);
 
   /** Signals **/
-  searchValue = signal('');
+  searchInput = signal('');
+
+  /** Computed **/
+  searchValue = computed(() => this.heroesService.getSearchValue());
+
+  /** Watchers **/
+  constructor() {
+    effect(
+      () => {
+        if (!this.searchValue()) {
+          this.searchInput.set('');
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
 
   /** Methods **/
   searchHero() {
-    this.heroesService.filterHeroesByName(this.searchValue());
+    this.heroesService.setSearchValue(this.searchInput());
+    this.heroesService.filterHeroes();
   }
   resetSearchHero(event: Event) {
     event.stopPropagation();
-    this.searchValue.set('');
-    this.heroesService.filterHeroesByName('');
+    this.searchInput.set('');
+    this.heroesService.setSearchValue(this.searchInput());
+    this.heroesService.filterHeroes();
   }
 }

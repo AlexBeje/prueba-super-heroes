@@ -11,7 +11,7 @@
       <strong class="w-full">My Heroes</strong>
     </h2>
     <div
-      class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-solid border-[#44474E] bg-[#30323] text-[8px] md:h-auto md:min-h-[60px] md:w-auto md:cursor-pointer md:text-sm md:hover:bg-[#30323a]"
+      class="flex min-h-20 min-w-20 cursor-pointer items-center justify-center rounded-lg border-2 border-solid border-[#44474E] bg-[#30323] text-[8px] hover:bg-[#30323a] md:h-auto md:min-h-[60px] md:w-auto md:text-sm"
       [class]="addMode() ? 'bg-[#44474E]' : ''"
       (click)="onAddNewClick()"
     >
@@ -19,7 +19,13 @@
     </div>
     @if (filteredMyHeroes() !== null) {
       @if (filteredMyHeroes()?.length === 0) {
-        <p class="md:text-center md:text-sm">No heroes found</p>
+        <div
+          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg bg-[#44474e] md:min-h-[60px]"
+        >
+          <span class="w-16 text-center text-[12px] md:w-auto md:text-inherit">
+            No heroes found
+          </span>
+        </div>
       } @else {
         @for (myHero of filteredMyHeroes(); track myHero.id) {
           <app-banner
@@ -57,7 +63,13 @@
     </h2>
     @if (filteredHeroes() !== null) {
       @if (filteredHeroes()?.length === 0) {
-        <p class="md:text-center md:text-sm">No heroes found</p>
+        <div
+          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg bg-[#44474e] md:min-h-[60px]"
+        >
+          <span class="w-16 text-center text-[12px] md:w-auto md:text-inherit">
+            No heroes found
+          </span>
+        </div>
       } @else {
         @for (hero of filteredHeroes(); track hero.id) {
           <app-banner
@@ -94,21 +106,25 @@
   </div>
   <div class="px-8 md:mb-0 md:mt-4 md:w-auto md:px-0">
     @if (editMode() === true || addMode() === true) {
-      <app-form
-        [lastId]="lastId()"
-        [editMode]="editMode()"
-        [data]="selectedHero()"
-        (edit)="onEditFormItem($event)"
-        (close)="onCloseForm()"
-        (add)="onAddFormItem($event)"
-      />
+      <div class="mb-20">
+        <app-form
+          [lastId]="lastId()"
+          [editMode]="editMode()"
+          [data]="selectedHero()"
+          (edit)="onEditFormItem($event)"
+          (close)="onCloseForm()"
+          (add)="onAddFormItem($event)"
+        />
+      </div>
     } @else {
-      <app-card
-        [title]="selectedHero()?.name"
-        [image]="selectedHero()?.images?.lg"
-        [biography]="selectedHero()?.biography"
-        [powerstats]="selectedHero()?.powerstats"
-      />
+      <div class="mb-12">
+        <app-card
+          [title]="selectedHero()?.name"
+          [image]="selectedHero()?.images?.lg"
+          [biography]="selectedHero()?.biography"
+          [powerstats]="selectedHero()?.powerstats"
+        />
+      </div>
     }
   </div>
 </div>

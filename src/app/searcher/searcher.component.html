@@ -9,8 +9,8 @@
         matInput
         (keyup.Enter)="searchHero()"
         (blur)="searchHero()"
-        [(ngModel)]="searchValue"
-        name="heroName"
+        [(ngModel)]="searchInput"
+        name="searchInput"
       />
       @if (searchValue()) {
         <button
