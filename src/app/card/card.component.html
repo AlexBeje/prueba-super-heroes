@@ -18,7 +18,7 @@
     }}</strong>
   </div>
   <img
-    class="h-[350px] w-full object-cover md:h-full md:min-h-[400px]"
+    class="h-full max-h-[600px] min-h-[400px] w-full object-cover"
     src="{{ image() }}"
     alt="{{ title() }}"
   />
@@ -30,66 +30,85 @@
   <div
     class="absolute -bottom-8 -right-7 max-w-[50%] rounded-lg border-[8px] border-solid border-[#44474e] bg-[#1a1b1f] p-2 md:max-w-[200px]"
   >
-    <p class="pb-2 text-center text-xl"><strong>Biography</strong></p>
-    <div class="flex flex-col gap-1">
-      <div>
-        <strong class="text-sm">Full name</strong>
-        @if (biography()?.fullName) {
-          <p class="text-xs underline">
-            <a
-              [href]="'https://www.google.es/search?q=' + biography()?.fullName"
-              target="_blank"
-            >
-              {{ biography()?.fullName }}
-            </a>
-          </p>
+    <div class="flex items-center justify-center gap-2 px-2 text-xl">
+      <strong>Biography</strong>
+      <button
+        mat-icon-button
+        aria-label="Expand less biography data"
+        (click)="toggleBiography()"
+      >
+        @if (biographyExpanded()) {
+          <mat-icon>expand_more</mat-icon>
         } @else {
-          <p class="text-xs">-</p>
+          <mat-icon>expand_less</mat-icon>
         }
-      </div>
-      <div>
-        <strong class="text-sm">Aliass</strong>
-        <p class="text-xs">
-          {{ (biography()?.aliases?.length && biography()!.aliases[0]) || "-" }}
-        </p>
-      </div>
-      <div>
-        <strong class="text-sm">Alignment</strong>
-        <p
-          class="text-xs 
+      </button>
+    </div>
+    @if (biographyExpanded()) {
+      <div class="flex flex-col gap-1 pt-2">
+        <div>
+          <strong class="text-sm">Full name</strong>
+          @if (biography()?.fullName) {
+            <p class="text-xs underline">
+              <a
+                [href]="
+                  'https://www.google.es/search?q=' + biography()?.fullName
+                "
+                target="_blank"
+              >
+                {{ biography()?.fullName }}
+              </a>
+            </p>
+          } @else {
+            <p class="text-xs">-</p>
+          }
+        </div>
+        <div>
+          <strong class="text-sm">Aliass</strong>
+          <p class="text-xs">
+            {{
+              (biography()?.aliases?.length && biography()!.aliases[0]) || "-"
+            }}
+          </p>
+        </div>
+        <div>
+          <strong class="text-sm">Alignment</strong>
+          <p
+            class="text-xs 
             {{ biography()?.alignment === 'good' && 'text-green-500' }}
             {{ biography()?.alignment === 'bad' && 'text-red-500' }}
           "
-        >
-          {{ biography()?.alignment === "good" ? "Good" : "Bad" }}
-        </p>
-      </div>
-      <div>
-        <strong class="text-sm">First appearance</strong>
-        @if (
-          biography()?.firstAppearance && biography()?.firstAppearance !== "-"
-        ) {
-          <p class="text-xs underline">
-            <a
-              [href]="
-                'https://www.google.es/search?q=' +
-                biography()
-                  ?.firstAppearance?.replaceAll(' ', '+')
-                  ?.replaceAll('&', '%26')
-                  ?.replaceAll('#', '%23')
-                  ?.replaceAll(':', '%3A')
-                  ?.replaceAll('(', '%28')
-                  ?.replaceAll(')', '%29')
-              "
-              target="_blank"
-            >
-              {{ biography()?.firstAppearance }}
-            </a>
+          >
+            {{ biography()?.alignment === "good" ? "Good" : "Bad" }}
           </p>
-        } @else {
-          <p class="text-xs">-</p>
-        }
+        </div>
+        <div>
+          <strong class="text-sm">First appearance</strong>
+          @if (
+            biography()?.firstAppearance && biography()?.firstAppearance !== "-"
+          ) {
+            <p class="text-xs underline">
+              <a
+                [href]="
+                  'https://www.google.es/search?q=' +
+                  biography()
+                    ?.firstAppearance?.replaceAll(' ', '+')
+                    ?.replaceAll('&', '%26')
+                    ?.replaceAll('#', '%23')
+                    ?.replaceAll(':', '%3A')
+                    ?.replaceAll('(', '%28')
+                    ?.replaceAll(')', '%29')
+                "
+                target="_blank"
+              >
+                {{ biography()?.firstAppearance }}
+              </a>
+            </p>
+          } @else {
+            <p class="text-xs">-</p>
+          }
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>

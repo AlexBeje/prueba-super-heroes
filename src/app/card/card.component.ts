@@ -16,4 +16,12 @@ export class CardComponent {
   image = input<string>();
   biography = input<Biography>();
   powerstats = input<Powerstats>();
+
+  /** Variables **/
+  biographyExpanded = signal(true);
+
+  /** Methods **/
+  toggleBiography() {
+    this.biographyExpanded.set(!this.biographyExpanded());
+  }
 }

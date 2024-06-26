@@ -9,4 +9,5 @@ import { SearcherComponent } from "./searcher/searcher.component";
     imports: [RouterOutlet, HeroesDbComponent, SearcherComponent]
 })
 export class AppComponent {
+    title = 'Superheroes DB';
 }
