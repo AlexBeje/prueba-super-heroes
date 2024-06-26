@@ -88,7 +88,7 @@ export class HeroesDbComponent implements OnInit {
     }
   }
   onAddFormItem(hero: Hero): void {
-    this.heroesService.setSearchValue('');
+    this.heroesService.setFilterByValue('');
     this.heroesService.filterHeroes();
     this.heroesService.addHero(hero);
     this.heroesService.fetchMyHeroes();
@@ -97,7 +97,7 @@ export class HeroesDbComponent implements OnInit {
     this.setSelectedHero(hero.id);
   }
   onEditFormItem(hero: Hero): void {
-    this.heroesService.setSearchValue('');
+    this.heroesService.setFilterByValue('');
     this.heroesService.filterHeroes();
     this.heroesService.editHero(hero);
     this.heroesService.fetchMyHeroes();
@@ -106,7 +106,7 @@ export class HeroesDbComponent implements OnInit {
     this.setSelectedHero(hero.id);
   }
   onDeleteFormItem(hero: Hero): void {
-    this.heroesService.setSearchValue('');
+    this.heroesService.setFilterByValue('');
     this.heroesService.filterHeroes();
     this.heroesService.deleteHero(hero);
     this.heroesService.fetchMyHeroes();

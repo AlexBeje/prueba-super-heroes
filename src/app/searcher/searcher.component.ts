@@ -28,13 +28,13 @@ export class SearcherComponent {
   searchInput = signal('');
 
   /** Computed **/
-  searchValue = computed(() => this.heroesService.getSearchValue());
+  filterBy = computed(() => this.heroesService.getFilterByValue());
 
   /** Watchers **/
   constructor() {
     effect(
       () => {
-        if (!this.searchValue()) {
+        if (!this.filterBy()) {
           this.searchInput.set('');
         }
       },
@@ -44,13 +44,13 @@ export class SearcherComponent {
 
   /** Methods **/
   searchHero() {
-    this.heroesService.setSearchValue(this.searchInput());
+    this.heroesService.setFilterByValue(this.searchInput());
     this.heroesService.filterHeroes();
   }
   resetSearchHero(event: Event) {
     event.stopPropagation();
     this.searchInput.set('');
-    this.heroesService.setSearchValue(this.searchInput());
+    this.heroesService.setFilterByValue(this.searchInput());
     this.heroesService.filterHeroes();
   }
 }

@@ -75,6 +75,6 @@ $dark-super-heroes-theme: mat.define-theme(
 
 html,
 body {
-  @apply m-0 h-full overflow-x-hidden md:overflow-auto;
+  @apply m-0 h-full overflow-x-hidden;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
