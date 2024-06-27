@@ -64,3 +64,7 @@ export interface MyHero {
   alias: string | null;
   firstAppearance: string | null;
 }
+
+export interface DialogData {
+  hero: Hero;
+} 

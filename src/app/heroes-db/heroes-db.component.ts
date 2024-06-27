@@ -4,26 +4,48 @@ import {
   PLATFORM_ID,
   computed,
   inject,
+  model,
   signal,
 } from '@angular/core';
 import type { Hero } from '../types/heroes.model';
 import { HeroesService } from '../services/heroes.service';
 import { CardComponent } from '../card/card.component';
 import { BannerComponent } from '../banner/banner.component';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { FormComponent } from '../form/form.component';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-heroes-db',
   standalone: true,
   templateUrl: './heroes-db.component.html',
-  imports: [CardComponent, BannerComponent, MatButton, FormComponent],
+  imports: [
+    CardComponent,
+    BannerComponent,
+    MatButtonModule,
+    FormComponent,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+  ],
 })
 export class HeroesDbComponent implements OnInit {
+  /** Injectables **/
+  dialog = inject(MatDialog);
+
   /** Variables **/
   heroesService = inject(HeroesService);
   isBrowser = inject(PLATFORM_ID) === 'browser';
   isServer = inject(PLATFORM_ID) === 'server';
+  // data = inject<DialogData>(MAT_DIALOG_DATA);
 
   /** Signals **/
   currentMyHeroes = signal<Hero[] | null>(null);
@@ -66,7 +88,15 @@ export class HeroesDbComponent implements OnInit {
   }
   onBannerDeleteClick(id: number): void {
     const hero = this.myHeroes().find((hero) => hero.id === id) as Hero;
-    this.onDeleteFormItem(hero);
+    this.openDeleteDialog(hero);
+  }
+  openDeleteDialog(hero: Hero): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.onDeleteFormItem(hero);
+      }
+    });
   }
   onShowMoreClick(): void {
     this.currentHeroes.update((heroes) => {
@@ -161,5 +191,26 @@ export class HeroesDbComponent implements OnInit {
           0,
       );
     }
+  }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'heroes-db-confirm-dialog.html',
+  styleUrl: 'heroes-db-confirm-dialog.scss',
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatButtonModule,
+  ],
+})
+export class DialogOverviewExampleDialog {
+  readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

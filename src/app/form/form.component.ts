@@ -27,6 +27,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
   ],
   templateUrl: './form.component.html',
+  styleUrl: './form.component.scss',
 })
 export class FormComponent {
   /** Inputs **/
