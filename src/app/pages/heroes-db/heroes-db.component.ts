@@ -6,12 +6,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import type { Hero } from '../types/heroes.model';
-import { HeroesService } from '../services/heroes.service';
-import { CardComponent } from '../card/card.component';
-import { BannerComponent } from '../banner/banner.component';
+import type { Hero } from '../../types/heroes.model';
+import { HeroesService } from '../../services/heroes.service';
+import { CardComponent } from '../../components/card/card.component';
+import { BannerComponent } from '../../components/banner/banner.component';
 import { MatButtonModule } from '@angular/material/button';
-import { FormComponent } from '../form/form.component';
+import { FormComponent } from '../../components/form/form.component';
 import {
   MatDialog,
   MatDialogActions,

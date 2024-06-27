@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeroesDbComponent } from './heroes-db/heroes-db.component';
-import { SearcherComponent } from "./searcher/searcher.component";
+import { HeroesDbComponent } from './pages/heroes-db/heroes-db.component';
+import { SearcherComponent } from "./components/searcher/searcher.component";
 @Component({
     selector: 'app-root',
     standalone: true,
