@@ -74,6 +74,10 @@ $dark-super-heroes-theme: mat.define-theme(
     border-radius: 4px;
     padding: 8px 16px;
   }
+  .mat-mdc-tooltip .mdc-tooltip__surface {
+    background: #44474e;
+    color: #d0d7da;
+  }
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
