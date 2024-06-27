@@ -6,16 +6,20 @@
   ></div>
   <div
     class="absolute -left-9 -top-9 flex h-16 w-16 select-none items-center justify-center rounded-full border-[8px] border-solid border-[#44474e] bg-[#262931] text-xl text-[#abc7f9]"
+    matTooltip="Superhero's POWER"
+    matTooltipPosition="right"
   >
     <strong>{{ powerstats()?.power || "-" }}</strong>
   </div>
   <div
     class="absolute -right-9 -top-10 flex h-[68px] w-[68px] select-none items-center justify-center text-xl"
+    matTooltip="Superhero's SPEED"
+    matTooltipPosition="left"
   >
     <img src="figure.svg" class="absolute w-[68px]" />
-    <strong class="absolute text-[#FADA89]">{{
-      powerstats()?.speed || "-"
-    }}</strong>
+    <strong class="absolute text-[#FADA89]">
+      {{ powerstats()?.speed || "-" }}
+    </strong>
   </div>
   <img
     class="h-full max-h-[600px] min-h-[400px] w-full object-cover"
@@ -30,19 +34,16 @@
   <div
     class="absolute -bottom-8 -right-7 max-w-[180px] rounded-lg border-[8px] border-solid border-[#44474e] bg-[#1a1b1f] p-2 md:max-w-[200px]"
   >
-    <div class="flex items-center justify-center gap-2 px-2 text-xl">
+    <div
+      class="flex cursor-pointer items-center justify-center gap-2 px-2 text-xl"
+      (click)="toggleBiography()"
+    >
       <strong>Biography</strong>
-      <button
-        mat-icon-button
-        aria-label="Expand less biography data"
-        (click)="toggleBiography()"
-      >
-        @if (biographyExpanded()) {
-          <mat-icon>expand_more</mat-icon>
-        } @else {
-          <mat-icon>expand_less</mat-icon>
-        }
-      </button>
+      @if (biographyExpanded()) {
+        <mat-icon>expand_more</mat-icon>
+      } @else {
+        <mat-icon>expand_less</mat-icon>
+      }
     </div>
     @if (biographyExpanded()) {
       <div class="flex flex-col gap-1 pt-2">
