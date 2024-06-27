@@ -4,7 +4,6 @@ import {
   PLATFORM_ID,
   computed,
   inject,
-  model,
   signal,
 } from '@angular/core';
 import type { Hero } from '../types/heroes.model';
@@ -22,6 +21,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-heroes-db',
@@ -36,6 +36,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDialogClose,
     MatDialogContent,
     MatDialogTitle,
+    MatProgressSpinnerModule,
   ],
 })
 export class HeroesDbComponent implements OnInit {
@@ -68,6 +69,7 @@ export class HeroesDbComponent implements OnInit {
     this.heroesService.fetchHeroes();
     this.heroesService.fetchMyHeroes();
     this.currentMyHeroes.set(this.myHeroes());
+    this.currentHeroes.set(this.heroes());
     this.currentHeroes.set(this.heroes().slice(0, 10));
     this.setSelectedHero(1);
     this.setLastId();

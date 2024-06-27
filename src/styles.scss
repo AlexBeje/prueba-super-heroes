@@ -30,39 +30,32 @@ $dark-super-heroes-theme: mat.define-theme(
 // that you are using.
 :root {
   @include mat.all-component-themes($dark-super-heroes-theme);
-  
-  // p,
-  // h1,
-  // h2,
-  // h3,
-  // h4,
-  // h5,
-  // h6 {
-  //   @apply m-0;
-  // }
 
-  /** Scrollbar Width **/
-  ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  /** Scrollbar Track **/
-  ::-webkit-scrollbar-track {
-    background: #16171b;
-    background-clip: padding-box;
-  }
-  /** Scrollbar Handle **/
-  ::-webkit-scrollbar-thumb {
-    background: #444756;
-  }
+    /** Scrollbar Width **/
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    /** Scrollbar Track **/
+    ::-webkit-scrollbar-track {
+      background: #16171b;
+      background-clip: padding-box;
+    }
+    /** Scrollbar Handle **/
+    ::-webkit-scrollbar-thumb {
+      background: #444756;
+    }
 
+  /** Custom Material Global Variables **/
+  --mdc-circular-progress-active-indicator-color: #c2d8e6;
+
+  /** Custom Material Global Classes **/
   .mat-mdc-icon-button {
     .mat-mdc-button-touch-target {
       width: auto !important;
       height: auto !important;
     }
   }
-
   .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
     padding: 0;
     min-width: auto;

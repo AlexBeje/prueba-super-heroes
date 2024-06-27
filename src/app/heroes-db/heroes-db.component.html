@@ -3,7 +3,7 @@
     class="hidden md:absolute md:bottom-0 md:left-0 md:block md:h-4 md:w-full md:bg-gradient-to-t md:from-[#1a1b1f]"
   ></div>
   <div
-    class="mb-10 flex h-[128px] items-center gap-4 md:gap-1 overflow-x-auto border-b-[1px] border-t-[1px] border-[#44474e] bg-[#0F0F12] pl-2 md:m-0 md:mt-4 md:h-auto md:max-h-[520px] md:w-[260px] md:flex-col md:items-stretch md:overflow-auto md:overflow-x-hidden md:border-0 md:bg-inherit md:pr-2"
+    class="mb-10 flex h-[128px] items-center gap-4 overflow-x-auto border-b-[1px] border-t-[1px] border-[#44474e] bg-[#0F0F12] pl-2 md:m-0 md:mt-4 md:h-auto md:max-h-[520px] md:w-[260px] md:flex-col md:items-stretch md:gap-1 md:overflow-auto md:overflow-x-hidden md:border-0 md:bg-inherit md:pr-2"
   >
     <h2
       class="-m-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"
@@ -20,9 +20,9 @@
     @if (filteredMyHeroes() !== null) {
       @if (filteredMyHeroes()?.length === 0) {
         <div
-          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg bg-[#44474e] md:min-h-[60px]"
+          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-[#44474E] md:min-h-[60px]"
         >
-          <span class="w-16 text-center text-[12px] md:w-auto md:text-inherit">
+          <span class="w-16 text-center text-[12px] md:w-auto md:text-sm">
             No heroes found
           </span>
         </div>
@@ -57,16 +57,16 @@
       }
     }
     <h2
-      class="md:mt-4 -ml-4 -mr-6 -rotate-90 text-nowrap text-sm md:m-0 md:rotate-0 md:text-lg"
+      class="-ml-4 -mr-6 -rotate-90 text-nowrap text-sm md:m-0 md:mt-4 md:rotate-0 md:text-lg"
     >
       <strong>Database</strong>
     </h2>
     @if (filteredHeroes() !== null) {
       @if (filteredHeroes()?.length === 0) {
         <div
-          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg bg-[#44474e] md:min-h-[60px]"
+          class="flex min-h-20 min-w-20 items-center justify-center rounded-lg border-2 border-[#44474E] md:min-h-[60px]"
         >
-          <span class="w-16 text-center text-[12px] md:w-auto md:text-inherit">
+          <span class="w-16 text-center text-[12px] md:w-auto md:text-sm">
             No heroes found
           </span>
         </div>
@@ -83,24 +83,32 @@
         }
       }
     } @else {
-      @for (hero of currentHeroes(); track hero.id) {
-        <app-banner
-          [title]="hero.name"
-          [selected]="selectedHero()?.id === hero.id"
-          [image]="hero.images.lg"
-          [id]="hero.id"
-          (click)="onBannerClick($event)"
-          [name]="hero.name"
-        />
-      }
-      @if (currentHeroes()?.length !== heroes().length) {
-        <button
-          mat-button
-          (click)="onShowMoreClick()"
-          class="mr-6 md:mb-4 md:mr-0 md:min-h-8 md:mt-2"
-        >
-          More
-        </button>
+      @if (currentHeroes()?.length) {
+        @for (hero of currentHeroes(); track hero.id) {
+          <app-banner
+            [title]="hero.name"
+            [selected]="selectedHero()?.id === hero.id"
+            [image]="hero.images.lg"
+            [id]="hero.id"
+            (click)="onBannerClick($event)"
+            [name]="hero.name"
+          />
+        }
+        @if (
+          currentHeroes()?.length && currentHeroes()?.length !== heroes().length
+        ) {
+          <button
+            mat-button
+            (click)="onShowMoreClick()"
+            class="mr-6 md:mb-4 md:mr-0 md:mt-2 md:min-h-8"
+          >
+            More
+          </button>
+        }
+      } @else {
+        <div class="mt-2 flex h-20 w-20 items-center justify-center md:mx-auto">
+          <mat-spinner />
+        </div>
       }
     }
   </div>
