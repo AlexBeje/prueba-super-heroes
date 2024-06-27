@@ -56,12 +56,23 @@ $dark-super-heroes-theme: mat.define-theme(
     background: #444756;
   }
 
-  // --mdc-icon-button-state-layer-size: 24px;
   .mat-mdc-icon-button {
     .mat-mdc-button-touch-target {
       width: auto !important;
       height: auto !important;
     }
+  }
+
+  .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+    padding: 0;
+    min-width: auto;
+  }
+  .mat-mdc-snack-bar-label {
+    text-align: center;
+    background: #44474e;
+    color: #d0d7da;
+    border-radius: 4px;
+    padding: 8px 16px;
   }
 }
 

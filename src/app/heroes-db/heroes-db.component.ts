@@ -21,6 +21,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-heroes-db',
@@ -45,7 +46,7 @@ export class HeroesDbComponent implements OnInit {
   heroesService = inject(HeroesService);
   isBrowser = inject(PLATFORM_ID) === 'browser';
   isServer = inject(PLATFORM_ID) === 'server';
-  // data = inject<DialogData>(MAT_DIALOG_DATA);
+  snackBarRef: MatSnackBar = inject(MatSnackBar);
 
   /** Signals **/
   currentMyHeroes = signal<Hero[] | null>(null);
@@ -125,6 +126,9 @@ export class HeroesDbComponent implements OnInit {
     this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
+    this.snackBarRef.open('New hero added!', undefined, {
+      duration: 3000,
+    });
   }
   onEditFormItem(hero: Hero): void {
     this.heroesService.setFilterByValue('');
@@ -134,6 +138,9 @@ export class HeroesDbComponent implements OnInit {
     this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
+    this.snackBarRef.open('Hero edited successfully!', undefined, {
+      duration: 3000,
+    });
   }
   onDeleteFormItem(hero: Hero): void {
     this.heroesService.setFilterByValue('');
@@ -147,6 +154,9 @@ export class HeroesDbComponent implements OnInit {
     } else {
       this.setSelectedHero(this.previousSelectedHero());
     }
+    this.snackBarRef.open('Hero deleted correctly!', undefined, {
+      duration: 3000,
+    });
   }
   setSelectedHero(id: number | null): void {
     if (id === null) {
