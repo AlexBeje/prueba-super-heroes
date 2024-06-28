@@ -2,7 +2,7 @@ import { Component, signal, inject, effect, computed } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HeroesService } from '../../services/heroes.service';
+import { HeroesStore } from '../../stores/heroes.store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -22,13 +22,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class SearcherComponent {
   /** Injectables **/
-  heroesService = inject(HeroesService);
+  heroesStore = inject(HeroesStore);
 
   /** Signals **/
   searchInput = signal('');
 
   /** Computed **/
-  filterBy = computed(() => this.heroesService.getFilterByValue());
+  filterBy = computed(() => this.heroesStore.getFilterByValue());
 
   /** Watchers **/
   constructor() {
@@ -44,13 +44,13 @@ export class SearcherComponent {
 
   /** Methods **/
   searchHero() {
-    this.heroesService.setFilterByValue(this.searchInput());
-    this.heroesService.filterHeroes();
+    this.heroesStore.setFilterByValue(this.searchInput());
+    this.heroesStore.filterHeroes();
   }
   resetSearchHero(event: Event) {
     event.stopPropagation();
     this.searchInput.set('');
-    this.heroesService.setFilterByValue(this.searchInput());
-    this.heroesService.filterHeroes();
+    this.heroesStore.setFilterByValue(this.searchInput());
+    this.heroesStore.filterHeroes();
   }
 }

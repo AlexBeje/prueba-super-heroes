@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import type { Hero } from '../../types/heroes.model';
-import { HeroesService } from '../../services/heroes.service';
+import { HeroesStore } from '../../stores/heroes.store';
 import { CardComponent } from '../../components/card/card.component';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,7 +44,7 @@ export class HeroesDbComponent implements OnInit {
   dialog = inject(MatDialog);
 
   /** Variables **/
-  heroesService = inject(HeroesService);
+  heroesStore = inject(HeroesStore);
   isBrowser = inject(PLATFORM_ID) === 'browser';
   isServer = inject(PLATFORM_ID) === 'server';
   snackBarRef: MatSnackBar = inject(MatSnackBar);
@@ -59,15 +59,15 @@ export class HeroesDbComponent implements OnInit {
   lastId = signal<number>(0);
 
   /** Computed **/
-  heroes = computed(() => this.heroesService.heroes());
-  myHeroes = computed(() => this.heroesService.myHeroes());
-  filteredHeroes = computed(() => this.heroesService.filteredHeroes());
-  filteredMyHeroes = computed(() => this.heroesService.filteredMyHeroes());
+  heroes = computed(() => this.heroesStore.heroes());
+  myHeroes = computed(() => this.heroesStore.myHeroes());
+  filteredHeroes = computed(() => this.heroesStore.filteredHeroes());
+  filteredMyHeroes = computed(() => this.heroesStore.filteredMyHeroes());
 
   /** Lifecycle Hooks **/
   ngOnInit(): void {
-    this.heroesService.fetchHeroes();
-    this.heroesService.fetchMyHeroes();
+    this.heroesStore.getHeroes();
+    this.heroesStore.getMyHeroes();
     this.currentMyHeroes.set(this.myHeroes());
     this.currentHeroes.set(this.heroes());
     this.currentHeroes.set(this.heroes().slice(0, 10));
@@ -121,10 +121,10 @@ export class HeroesDbComponent implements OnInit {
     }
   }
   onAddFormItem(hero: Hero): void {
-    this.heroesService.setFilterByValue('');
-    this.heroesService.filterHeroes();
-    this.heroesService.addHero(hero);
-    this.heroesService.fetchMyHeroes();
+    this.heroesStore.setFilterByValue('');
+    this.heroesStore.filterHeroes();
+    this.heroesStore.addHero(hero);
+    this.heroesStore.getMyHeroes();
     this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
@@ -133,10 +133,10 @@ export class HeroesDbComponent implements OnInit {
     });
   }
   onEditFormItem(hero: Hero): void {
-    this.heroesService.setFilterByValue('');
-    this.heroesService.filterHeroes();
-    this.heroesService.editHero(hero);
-    this.heroesService.fetchMyHeroes();
+    this.heroesStore.setFilterByValue('');
+    this.heroesStore.filterHeroes();
+    this.heroesStore.editHero(hero);
+    this.heroesStore.getMyHeroes();
     this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     this.setSelectedHero(hero.id);
@@ -145,10 +145,10 @@ export class HeroesDbComponent implements OnInit {
     });
   }
   onDeleteFormItem(hero: Hero): void {
-    this.heroesService.setFilterByValue('');
-    this.heroesService.filterHeroes();
-    this.heroesService.deleteHero(hero);
-    this.heroesService.fetchMyHeroes();
+    this.heroesStore.setFilterByValue('');
+    this.heroesStore.filterHeroes();
+    this.heroesStore.deleteHero(hero);
+    this.heroesStore.getMyHeroes();
     this.currentMyHeroes.set(this.myHeroes());
     this.setMode('default');
     if (this.previousSelectedHero() === hero.id) {
