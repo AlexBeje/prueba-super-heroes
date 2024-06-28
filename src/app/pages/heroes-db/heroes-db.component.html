@@ -42,18 +42,24 @@
         }
       }
     } @else {
-      @for (myHero of currentMyHeroes(); track myHero.id) {
-        <app-banner
-          [title]="myHero.name"
-          [selected]="selectedHero()?.id === myHero.id"
-          [name]="myHero.name"
-          [image]="myHero.images.lg"
-          [id]="myHero.id"
-          [editMode]="true"
-          (edit)="onBannerEditClick($event)"
-          (delete)="onBannerDeleteClick($event)"
-          (click)="onBannerClick($event)"
-        />
+      @if (currentHeroes()?.length) {
+        @for (myHero of currentMyHeroes(); track myHero.id) {
+          <app-banner
+            [title]="myHero.name"
+            [selected]="selectedHero()?.id === myHero.id"
+            [name]="myHero.name"
+            [image]="myHero.images.lg"
+            [id]="myHero.id"
+            [editMode]="true"
+            (edit)="onBannerEditClick($event)"
+            (delete)="onBannerDeleteClick($event)"
+            (click)="onBannerClick($event)"
+          />
+        }
+      } @else {
+        <div class="mt-2 flex h-20 w-20 items-center justify-center md:mx-auto">
+          <mat-spinner />
+        </div>
       }
     }
     <h2

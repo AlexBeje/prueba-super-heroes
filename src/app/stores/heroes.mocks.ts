@@ -135,3 +135,58 @@ export const mockFetchHeroesResponse = [
     },
   },
 ];
+
+export const mockFetchMyHeroesResponse = [
+  {
+    id: 4,
+    name: 'Spider-Man',
+    images: {
+      lg: 'https://www.zonanegativa.com/imagenes/2021/09/Ben-Reilly-Spider-Man.jpg',
+    },
+    powerstats: {
+      power: 43,
+      speed: 87,
+    },
+    biography: {
+      fullName: 'Peter Parker ',
+      aliases: ['Spidey'],
+      firstAppearance: 'Spider-Man#1',
+      alignment: 'good',
+    },
+  },
+  {
+    id: 5,
+    name: 'Iron-Man',
+    images: {
+      lg: 'https://hips.hearstapps.com/hmg-prod/images/marvel-sustituto-iron-man-serie-65859273d1187.jpg',
+    },
+    powerstats: {
+      power: 54,
+      speed: 76,
+    },
+    biography: {
+      fullName: 'Tony Stark',
+      aliases: [''],
+      firstAppearance: 'Iron-Man #1',
+      alignment: 'good',
+    },
+  },
+];
+
+export const mockAddHero = {
+  id: 6,
+  name: 'Hulk',
+  images: {
+    lg: 'https://www.mundodeportivo.com/alfabeta/hero/2023/03/image-2023-03-23t103742.872.jpg?width=1200',
+  },
+  powerstats: {
+    power: 100,
+    speed: 26,
+  },
+  biography: {
+    fullName: 'Bruce Banner',
+    aliases: [''],
+    firstAppearance: 'The Hulk #1',
+    alignment: 'good',
+  },
+};

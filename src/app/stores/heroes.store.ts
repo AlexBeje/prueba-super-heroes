@@ -28,19 +28,19 @@ export class HeroesStore {
       this.myHeroes.set(this.heroesService.fetchMyHeroes());
     }
   }
-
   addHero(hero: Hero): void {
     if (this.isBrowser) {
-      localStorage.setItem(
-        'myHeroes',
-        JSON.stringify([...this.myHeroes(), hero]),
-      );
+      this.myHeroes.update(() => [...this.myHeroes(), hero]);
+      localStorage.setItem('myHeroes', JSON.stringify(this.myHeroes()));
     }
   }
   editHero(hero: Hero): void {
     if (this.isBrowser) {
       const index = this.myHeroes().findIndex((h: Hero) => h.id === hero.id);
-      this.myHeroes()[index] = hero;
+      this.myHeroes.update((heroes) => {
+        heroes[index] = hero;
+        return heroes;
+      });
       localStorage.setItem('myHeroes', JSON.stringify(this.myHeroes()));
     }
   }
