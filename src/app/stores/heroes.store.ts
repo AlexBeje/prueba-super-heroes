@@ -17,11 +17,6 @@ export class HeroesStore {
   filteredMyHeroes = signal<Hero[] | null>(null);
   filterBy = signal('');
 
-  /** Getters **/
-  getFilterByValue(): string {
-    return this.filterBy();
-  }
-
   /** Actions **/
   getHeroes(): void {
     this.heroesService.fetchHeroes().subscribe((heroes) => {

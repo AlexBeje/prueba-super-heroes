@@ -28,7 +28,7 @@ export class SearcherComponent {
   searchInput = signal('');
 
   /** Computed **/
-  filterBy = computed(() => this.heroesStore.getFilterByValue());
+  filterBy = computed(() => this.heroesStore.filterBy());
 
   /** Watchers **/
   constructor() {
