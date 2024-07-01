@@ -9,9 +9,11 @@ import { Hero } from '../types/heroes.model';
 import * as _ from 'lodash';
 
 describe('HeroesStore', () => {
+  /** Variables **/
   let store: HeroesStore;
   let service: HeroesService;
 
+  /** beforeEach() Method **/
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HeroesStore, provideHttpClient(), provideHttpClientTesting()],
@@ -84,5 +86,48 @@ describe('HeroesStore', () => {
     store.deleteHero(heroToBeDeleted);
     expect(store.myHeroes().find((hero) => hero.id === 4)).toBeUndefined();
     expect(store.myHeroes().length).toBe(1);
+  });
+
+  /** setFilterByValue() Method **/
+  it('should set the filterBy value', () => {
+    store.setFilterByValue('spider');
+    expect(store.filterBy()).toBe('spider');
+  });
+
+  /** filterHeroes() Method **/
+  it('should filter the heroes list based on the filterBy value', () => {
+    jest
+      .spyOn(service, 'fetchMyHeroes')
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
+    jest
+      .spyOn(service, 'fetchHeroes')
+      .mockReturnValue(of(heroesStoreMocks.mockFetchHeroesResponse));
+    store.getMyHeroes();
+    store.getHeroes();
+    expect(store.myHeroes().length).toBe(2);
+    expect(store.heroes().length).toBe(3);
+    store.setFilterByValue('bomb');
+    store.filterHeroes();
+    expect(store.filteredMyHeroes()?.length).toBe(0);
+    expect(store.filteredHeroes()?.length).toBe(1);
+    expect(store.filteredHeroes()?.map((hero) => hero.name)).toContain(
+      'A-Bomb',
+    );
+  });
+  it('should set the filtered heroes lists value to null when filterBy value is empty', () => {
+    jest
+      .spyOn(service, 'fetchMyHeroes')
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
+    jest
+      .spyOn(service, 'fetchHeroes')
+      .mockReturnValue(of(heroesStoreMocks.mockFetchHeroesResponse));
+    store.getMyHeroes();
+    store.getHeroes();
+    expect(store.myHeroes().length).toBe(2);
+    expect(store.heroes().length).toBe(3);
+    store.setFilterByValue('');
+    store.filterHeroes();
+    expect(store.filteredMyHeroes()).toBe(null);
+    expect(store.filteredHeroes()).toBe(null);
   });
 });
