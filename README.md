@@ -59,14 +59,14 @@ y, al confirmarlo, lo borrará.
 - [x] Servicio: se permite tanto mockear los datos como la conexión con una API (real o)
 pero en caso de tener los datos en el servicio, se debe simular las llamadas a la API
 mediante observables.
-- [ ] Loader: Al obtener los datos se debe mostrar un loader informando al usuario de que
+- [x] Loader: Al obtener los datos se debe mostrar un loader informando al usuario de que
 los datos se están cargando.
-- [ ] Notificaciones: Al crear / modificar / eliminar un elemento o en caso de error, mostrar
+- [x] Notificaciones: Al crear / modificar / eliminar un elemento o en caso de error, mostrar
 mensaje informativo al usuario.
 
 **Se valora positivamente:**
 - [x] Utilizar una librería visual como podría ser Angular material.
-- [ ] Añadir tests.
+- [x] Añadir tests.
 - [x] Uso de programación reactiva.
 - [x] Modularización de los componentes
-- [x]La prueba se debe presentar en un repositorio de Git.
+- [x] La prueba se debe presentar en un repositorio de Git.
