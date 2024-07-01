@@ -47,7 +47,7 @@ seleccionado.
 - [x] Botón nuevo héroe, navegará a la página de creación de héroes.
 - [x] El nombre de los héroes del filtrado debe mostrarse con la primera letra en
 mayúsculas.
-- [ ] Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe
+- [x] Botón de borrar héroes, preguntará si se está seguro de que se desea borrar el héroe
 y, al confirmarlo, lo borrará.
 
 **Crear / Editar**
