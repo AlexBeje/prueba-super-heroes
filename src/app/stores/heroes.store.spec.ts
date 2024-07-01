@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { HeroesService } from '../services/heroes.service';
 import * as heroesStoreMocks from './heroes.mocks';
 import { Hero } from '../types/heroes.model';
+import * as _ from 'lodash';
 
 describe('HeroesStore', () => {
   let store: HeroesStore;
@@ -32,7 +33,7 @@ describe('HeroesStore', () => {
   it('should fetch the my heroes list', () => {
     jest
       .spyOn(service, 'fetchMyHeroes')
-      .mockReturnValue(heroesStoreMocks.mockFetchMyHeroesResponse);
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
     store.getMyHeroes();
     expect(store.myHeroes()).toEqual(
       heroesStoreMocks.mockFetchMyHeroesResponse,
@@ -43,13 +44,13 @@ describe('HeroesStore', () => {
   it('should add a hero to my heroes list', () => {
     jest
       .spyOn(service, 'fetchMyHeroes')
-      .mockReturnValue(heroesStoreMocks.mockFetchMyHeroesResponse);
-    const hero = heroesStoreMocks.mockAddHero;
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
+    const newHero = heroesStoreMocks.mockAddHero;
     store.getMyHeroes();
-    store.addHero(hero);
+    store.addHero(newHero);
     expect(store.myHeroes()).toEqual([
       ...heroesStoreMocks.mockFetchMyHeroesResponse,
-      hero,
+      newHero,
     ]);
   });
 
@@ -57,7 +58,7 @@ describe('HeroesStore', () => {
   it('should edit a hero from my heroes list', () => {
     jest
       .spyOn(service, 'fetchMyHeroes')
-      .mockReturnValue(heroesStoreMocks.mockFetchMyHeroesResponse);
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
     store.getMyHeroes();
     expect(store.myHeroes().find((hero) => hero.id === 4)?.name).toEqual(
       'Spider-Man',
@@ -72,22 +73,16 @@ describe('HeroesStore', () => {
 
   /** deleteHero() Method **/
   it('should delete a hero from my heroes list', () => {
-    jest.clearAllMocks();
-    // jest.resetAllMocks();
-    // console.log('🤲', heroesStoreMocks.mockFetchMyHeroesResponse)
     jest
       .spyOn(service, 'fetchMyHeroes')
-      .mockReturnValue(heroesStoreMocks.mockFetchMyHeroesResponse);
+      .mockReturnValue(_.cloneDeep(heroesStoreMocks.mockFetchMyHeroesResponse));
     store.getMyHeroes();
     const heroToBeDeleted = store
       .myHeroes()
       .find((hero) => hero.id === 4) as Hero;
-    console.log('👬', heroToBeDeleted);
-    // console.log('👅', store.myHeroes());
-    // store.deleteHero(heroToBeDeleted);
-    // console.log('👩‍👦', store.myHeroes());
-    // expect(store.myHeroes()).toEqual(
-    //   heroesStoreMocks.mockFetchMyHeroesResponse,
-    // );
+    expect(store.myHeroes().length).toBe(2);
+    store.deleteHero(heroToBeDeleted);
+    expect(store.myHeroes().find((hero) => hero.id === 4)).toBeUndefined();
+    expect(store.myHeroes().length).toBe(1);
   });
 });

@@ -11,41 +11,41 @@ export interface Hero {
 }
 
 export interface Powerstats {
+  power: number;
+  speed: number;
+  combat?: number;
+  durability?: number;
   intelligence?: number;
   strength?: number;
-  speed: number;
-  durability?: number;
-  power: number;
-  combat?: number;
 }
 
 export interface Appearance {
-  gender: string;
+  eyeColor?: string;
+  gender?: string;
+  hairColor?: string;
+  height?: string[];
+  weight?: string[];
   race?: string;
-  height: string[];
-  weight: string[];
-  eyeColor: string;
-  hairColor: string;
 }
 
 export interface Biography {
+  aliases: string[];
+  alignment: string;
   fullName?: string;
   alterEgos?: string;
-  aliases: string[];
   placeOfBirth?: string;
   firstAppearance?: string;
   publisher?: string;
-  alignment: string;
 }
 
 export interface Work {
-  occupation: string;
-  base: string;
+  base?: string;
+  occupation?: string;
 }
 
 export interface Connections {
-  groupAffiliation: string;
-  relatives: string;
+  groupAffiliation?: string;
+  relatives?: string;
 }
 
 export interface Images {
@@ -53,16 +53,6 @@ export interface Images {
   sm?: string;
   md?: string;
   lg: string;
-}
-
-export interface MyHero {
-  id: number;
-  name: string;
-  imageUrl: string;
-  power: string;
-  speed: string;
-  alias: string | null;
-  firstAppearance: string | null;
 }
 
 export interface DialogData {

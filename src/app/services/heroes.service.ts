@@ -13,7 +13,7 @@ export class HeroesService {
   isBrowser = inject(PLATFORM_ID) === 'browser';
 
   /** Fetchers **/
-  fetchMyHeroes(): [] | Hero[] {
+  fetchMyHeroes(): Hero[] {
     if (this.isBrowser) {
       return JSON.parse(localStorage.getItem('myHeroes') || '[]');
     } else {

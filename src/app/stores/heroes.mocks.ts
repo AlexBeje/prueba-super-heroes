@@ -1,4 +1,6 @@
-export const mockFetchHeroesResponse = [
+import { Hero } from "../types/heroes.model";
+
+export const mockFetchHeroesResponse: Hero[] = [
   {
     id: 1,
     name: 'A-Bomb',
@@ -136,7 +138,7 @@ export const mockFetchHeroesResponse = [
   },
 ];
 
-export const mockFetchMyHeroesResponse = [
+export const mockFetchMyHeroesResponse: Hero[] = [
   {
     id: 4,
     name: 'Spider-Man',
